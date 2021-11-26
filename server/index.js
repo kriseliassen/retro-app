@@ -1,9 +1,16 @@
-
-import express from 'express'
+const express = require('express')
+const { teams } = require('./src/db/functions.js')
 const app = express()
 const port = 3001
 
-app.get('/', (req, res) => {
+app.get('/db/teams', async (req, res) => {
+  const teamsData = await teams()
+  console.log(teamsData)
+  res.json(teamsData)
+})
+
+app.post('/db', (req, res) => {
+
   res.send('Hello World!')
 })
 
