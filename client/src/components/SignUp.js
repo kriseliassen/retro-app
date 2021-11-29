@@ -15,7 +15,6 @@ const SignUp = () => {
   const { addUser } = bindActionCreators(actionCreators, dispatch);
 
   const onSubmit = async data => {
-    console.log('form data', data)
     const response = await fetch('/db/users/signup', {
       method: 'POST',
       headers: {

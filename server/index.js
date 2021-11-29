@@ -22,6 +22,15 @@ app.get('/db/users', async (req, res) => {
   const usersData = await users()
   res.json(usersData)
 })
+
+app.get('/db/user', async (req, res) => {
+  const  token = (req.headers.authorization.replace('Bearer ', '').replaceAll('"', ''));
+  const decodedToken  = JWT.verify(token, secret)
+  const user = await getUserByEmail(decodedToken.email);
+  
+  res.status(201).json({ token, user: {name: user.first_name, id: user.id } })
+})
+
 app.delete('/db/users/:email', async (req, res) => {
   const { email } = req.params
   await deleteUserByEmail(email)
