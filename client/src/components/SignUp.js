@@ -10,7 +10,6 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
 
   const { addUser } = bindActionCreators(actionCreators, dispatch);
 
@@ -35,7 +34,7 @@ const SignUp = () => {
         <input type="text" placeholder="First name" {...register("firstName", {required: true, min: 3})} />
         <input type="text" placeholder="Last name" {...register("lastName", {required: true, min: 3})} />
         <input type="text" placeholder="Email" {...register("email", {required: true, pattern: /^\S+@\S+$/i})} />
-        <input type="text" placeholder="Password" {...register("password", {required: true, min: 6})} />
+        <input type="password" placeholder="Password" {...register("password", {required: true, min: 6})} />
 
         <input type="submit" />
       </form>

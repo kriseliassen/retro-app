@@ -34,7 +34,7 @@ const Login = () => {
       <h1>Log in</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type="text" placeholder="Email" {...register("email", {required: true, pattern: /^\S+@\S+$/i})} />
-        <input type="text" placeholder="Password" {...register("password", {required: true, min: 6})} />
+        <input type="password" placeholder="Password" {...register("password", {required: true, min: 6})} />
 
         <input type="submit" />
       </form>
