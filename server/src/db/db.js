@@ -13,4 +13,5 @@ pool.connect();
 module.exports = {
   query: async (text, params) => pool.query(text, params),
   GET_ALL_TEAMS: 'SELECT * FROM teams',
+  GET_ALL_USERS: 'SELECT * FROM users',
 };
