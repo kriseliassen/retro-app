@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { actionCreators } from '../state';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -39,6 +39,7 @@ const SignUp = () => {
 
         <input type="submit" />
       </form>
+      <Link to="/login">Already have an account? Log in!</Link>
     </div>
   );
 }

@@ -8,27 +8,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 const App = () => {
-  const dispatch = useDispatch();
-  const { addUser } = bindActionCreators(actionCreators, dispatch);
+  // const dispatch = useDispatch();
+  // const { addUser } = bindActionCreators(actionCreators, dispatch);
 
-  const getUserData = async (token) => {
-    let resp = await fetch('/db/user', {
-      method: "GET",
-      headers: { "Authorization": `Bearer ${token}` },
-    })
-    const user = await resp.json();
-    console.log(user)
-    addUser(user)
-    // FETCH DATA FROM THE USER BASED ON THE TOKEN
-  }
+  // const getUserData = async (token) => {
+  //   let resp = await fetch('/db/user', {
+  //     method: "GET",
+  //     headers: { "Authorization": `Bearer ${token}` },
+  //   })
+  //   const user = await resp.json();
+  //   console.log(user)
+  //   addUser(user)
+  // }
 
-  useEffect(() => {
-    const token = localStorage.getItem('retroToken')
-    if (token) {
-      console.log('LOCAL STORAGE CONTAINS TOKEN')
-      getUserData(token)
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('retroToken')
+  //   if (token) {
+  //     console.log('LOCAL STORAGE CONTAINS TOKEN')
+  //     getUserData(token)
+  //   }
+  // }, []);
 
   return (
     <div className="App">

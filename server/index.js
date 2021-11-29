@@ -47,7 +47,7 @@ app.post('/db/users/signup', async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10)
   await addUser({ ...req.body, password: hashedPassword })
   const createdUser = await getUserByEmail(email);
-  const token = await JWT.sign({ email }, secret, { expiresIn: '1h' })
+  const token = JWT.sign({ email }, secret, { expiresIn: '1d' })
   res.status(201).json({ token, user: {name: createdUser.first_name, id: createdUser.id } })
 })
 
@@ -60,8 +60,8 @@ app.post('/db/users/login', async (req, res) => {
   }
   const passwordMatches = await bcrypt.compare(password, user.password)
   if (passwordMatches) {
-    const token = await JWT.sign({ email }, secret, { expiresIn: '1h' })
-    res.json({ token })
+    const token = JWT.sign({ email }, secret, { expiresIn: '1d' })
+    res.status(201).json({ token, user: {name: user.first_name, id: user.id } })
     return
   } else {
     res.status(400).json({ message: 'The details provided are not correct.' })
