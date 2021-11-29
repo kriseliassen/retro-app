@@ -17,4 +17,8 @@ module.exports ={
         await db.query(db.ADD_USER, Object.values(user));
         return;
     },
+    deleteUserByEmail: async (email) => {
+        await db.query(db.DELETE_USER_BY_EMAIL, [email]);
+        return;
+    },
 }
