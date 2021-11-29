@@ -5,10 +5,13 @@ const app = express()
 const port = 3001
 const JWT = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
+const cors = require('cors');
 
 app.use(express.json());
 
 const secret = process.env.JWT_SECRET;
+
+app.use(cors());
 
 app.get('/db/teams', async (req, res) => {
   const teamsData = await teams()
@@ -34,8 +37,9 @@ app.post('/db/users/signup', async (req, res) => {
   }
   const hashedPassword = await bcrypt.hash(password, 10)
   await addUser({ ...req.body, password: hashedPassword })
+  const createdUser = await getUserByEmail(email);
   const token = await JWT.sign({ email }, secret, { expiresIn: '1h' })
-  res.status(201).json({ token })
+  res.status(201).json({ token, user: {name: createdUser.first_name, id: createdUser.id } })
 })
 
 app.post('/db/users/login', async (req, res) => {
