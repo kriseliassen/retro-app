@@ -36,5 +36,9 @@ module.exports ={
     assignTeamToUser: async (userId, teamName) => {
         await db.query(db.ASSIGN_TEAM_TO_USER, [teamName, userId]);
         return;
-    }
+    },
+    getTeamById: async id => {
+        const { rows } = await db.query(db.GET_TEAM_BY_ID, [id]);
+        return rows[0];
+    },
 }

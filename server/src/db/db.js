@@ -42,5 +42,9 @@ module.exports = {
     UPDATE users SET team_id =
     (SELECT id FROM teams WHERE name = $1)
     WHERE id = $2
+  `,
+  GET_TEAM_BY_ID: `
+    SELECT * FROM teams
+    WHERE id = $1
   `
 };
