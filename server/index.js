@@ -1,5 +1,5 @@
 const express = require('express')
-const { teams, users, getUserByEmail, addUser, deleteUserByEmail } = require('./src/db/functions.js')
+const { teams, users, getUserByEmail, addUser, addTeam, deleteUserByEmail, getTeamByName } = require('./src/db/functions.js')
 const bcrypt = require('bcrypt')
 const app = express()
 const port = 3001
@@ -18,17 +18,34 @@ app.get('/db/teams', async (req, res) => {
   res.json(teamsData)
 })
 
+app.get('/db/teams/:name', async (req, res) => {
+  const { name } = req.params;
+  const team = await getTeamByName(name.toLowerCase());
+  res.json(team)
+})
+
+app.post('/db/teams', async (req, res) => {
+  await addTeam(req.body.name);
+  const team = await getTeamByName(req.body.name);
+  console.log(team)
+  res.json(team)
+})
+
 app.get('/db/users', async (req, res) => {
   const usersData = await users()
   res.json(usersData)
 })
 
 app.get('/db/user', async (req, res) => {
-  const  token = (req.headers.authorization.replace('Bearer ', '').replaceAll('"', ''));
-  const decodedToken  = JWT.verify(token, secret)
-  const user = await getUserByEmail(decodedToken.email);
+  try {
+    const token = (req.headers.authorization.replace('Bearer ', '').replaceAll('"', ''));
+    const decodedToken = JWT.verify(token, secret)
+    const user = await getUserByEmail(decodedToken.email);
+    res.status(201).json({ token, user: {name: user.first_name, id: user.id } })
+  } catch (err) {
+    res.status(401).json({ error: 'session expired, please login again' });
+  }
   
-  res.status(201).json({ token, user: {name: user.first_name, id: user.id } })
 })
 
 app.delete('/db/users/:email', async (req, res) => {

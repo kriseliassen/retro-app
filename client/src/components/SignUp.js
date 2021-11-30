@@ -42,21 +42,24 @@ const SignUp = () => {
             placeholder="First name" 
             {...register("firstName", { required: true, min: 3 })}
             className="Form__input"/>
+            {errors.firstName?.type === 'required' && "First name is required"}
           <input 
             type="text" 
             placeholder="Last name" 
             {...register("lastName", { required: true, min: 3 })}
             className="Form__input"/>
+            {errors.lastName?.type === 'required' && "Last name is required"}
           <input 
             type="text" 
             placeholder="Email" 
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}  className="Form__input"/>
+            {errors.email?.type === 'required' && "Email is required"}
           <input 
             type="password" 
             placeholder="Password" 
             {...register("password", { required: true, min: 6 })}  
             className="Form__input"/>
-
+            {errors.firstName?.type === 'required' && "Password is required"}
           <input 
           type="submit" 
           className="Form__button"/>

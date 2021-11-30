@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS teams (
   id SERIAL PRIMARY KEY
-  name VARCHAR NOT NULL
+  UNIQUE(name) VARCHAR NOT NULL
 )
 
 INSERT INTO teams 
@@ -10,3 +10,5 @@ VALUES
 ('Mobsters'),
 ('Rubix'),
 ('Status202')
+
+ALTER TABLE teams ADD UNIQUE (name)

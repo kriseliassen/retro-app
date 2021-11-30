@@ -21,6 +21,11 @@ const Profile = () => {
       headers: { "Authorization": `Bearer ${token}` },
     })
     const user = await resp.json();
+  
+    if (user.error) {
+      logOut();
+      return;
+    }
     addUser(user)
   }
 

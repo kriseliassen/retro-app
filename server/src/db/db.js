@@ -16,7 +16,7 @@ module.exports = {
   GET_ALL_USERS: 'SELECT * FROM users',
   GET_USER_BY_EMAIL: `
     SELECT * FROM users
-    WHERE email = $1
+    WHERE lower(email) = $1
     `,
   ADD_USER: `
     INSERT INTO users (first_name, last_name, email, password)
@@ -26,4 +26,13 @@ module.exports = {
     DELETE FROM users
     WHERE email = $1
     `,
+  ADD_TEAM: `
+    INSERT INTO teams (name)
+    VALUES ($1)
+  `,
+  GET_TEAM_BY_NAME: `
+    SELECT * FROM teams
+    WHERE lower(name) = $1
+  `,
+  
 };

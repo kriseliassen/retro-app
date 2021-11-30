@@ -2,10 +2,11 @@ const { Pool } = require('pg');
 const dotenv = require('dotenv').config();
 const fs = require('fs');
 
-const teams = fs.readFileSync('./src/db/dbSeed/teams.sql').toString();
-const users = fs.readFileSync('./src/db/dbSeed/users.sql').toString();
+const teams = fs.readFileSync('./server/src/db/dbSeed/teams.sql').toString();
+// const users = fs.readFileSync('./src/db/dbSeed/users.sql').toString();
 
 console.log(teams)
+
 const pool = new Pool({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
@@ -15,4 +16,4 @@ const pool = new Pool({
 });
 pool.connect();
 
-pool.query(users).then(() => console.log('added user'));
+pool.query(teams).then(() => console.log('added teams'));
