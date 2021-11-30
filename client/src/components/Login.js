@@ -4,6 +4,7 @@ import { actionCreators } from '../state';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import '../styles/Login.css'
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -23,22 +24,42 @@ const Login = () => {
     })
     const userData = await response.json()
     localStorage.setItem('retroToken', JSON.stringify(userData.token));
-    addUser({name: userData.user.name, id: userData.user.id});
+    addUser({ name: userData.user.name, id: userData.user.id });
     navigate('/');
   };
-  
 
-  
+
+
   return (
-    <div>
-      <h1>Log in</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="Email" {...register("email", {required: true, pattern: /^\S+@\S+$/i})} />
-        <input type="password" placeholder="Password" {...register("password", {required: true, min: 6})} />
+    <div className="Login__container">
+      <h1 className="logo">
+        Retro
+      </h1>
+      <div className="Form__container">
+        <h2 className="Form__header">
+          Log in
+        </h2>
+        <form 
+          onSubmit={handleSubmit(onSubmit)} className="Form">
+          <input 
+          type="text" 
+          placeholder="Email" 
+          {...register("email", { required: true, pattern: /^\S+@\S+$/i })}  className="Form__input"/>
+          <input 
+            type="password" 
+            placeholder="Password" 
+            {...register("password", { required: true, min: 6 })}  className="Form__input"/>
 
-        <input type="submit" />
-      </form>
-      <Link to="/signup">No account? Sign up!</Link>
+          <input 
+            type="submit"
+            className="Form__button"/>
+        </form>
+        <Link 
+          to="/signup" 
+          className="Form__link">
+          No account? Sign up!
+        </Link>
+      </div>
     </div>
   );
 }

@@ -23,22 +23,50 @@ const SignUp = () => {
     })
     const userData = await response.json()
     localStorage.setItem('retroToken', JSON.stringify(userData.token));
-    addUser({name: userData.user.name, id: userData.user.id});
+    addUser({ name: userData.user.name, id: userData.user.id });
     navigate('/');
   };
-  
-  return (
-    <div>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="First name" {...register("firstName", {required: true, min: 3})} />
-        <input type="text" placeholder="Last name" {...register("lastName", {required: true, min: 3})} />
-        <input type="text" placeholder="Email" {...register("email", {required: true, pattern: /^\S+@\S+$/i})} />
-        <input type="password" placeholder="Password" {...register("password", {required: true, min: 6})} />
 
-        <input type="submit" />
-      </form>
-      <Link to="/login">Already have an account? Log in!</Link>
+  return (
+    <div className="Signup__container">
+      <h1 className="logo">
+        Retro
+      </h1>
+      <div className="Form__container">
+        <h2 className="Form__header">
+          Sign Up
+        </h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="Form">
+          <input 
+            type="text" 
+            placeholder="First name" 
+            {...register("firstName", { required: true, min: 3 })}
+            className="Form__input"/>
+          <input 
+            type="text" 
+            placeholder="Last name" 
+            {...register("lastName", { required: true, min: 3 })}
+            className="Form__input"/>
+          <input 
+            type="text" 
+            placeholder="Email" 
+            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}  className="Form__input"/>
+          <input 
+            type="password" 
+            placeholder="Password" 
+            {...register("password", { required: true, min: 6 })}  
+            className="Form__input"/>
+
+          <input 
+          type="submit" 
+          className="Form__button"/>
+        </form>
+        <Link 
+          to="/login"
+          className="Form__link">
+          Already have an account? Log in!
+        </Link>
+      </div>
     </div>
   );
 }

@@ -1,36 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Profile from './Profile.js';
 import SignUp from './SignUp.js';
 import Login from './Login.js';
-import { actionCreators } from '../state';
-import { useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import '../styles/App.css'
 
 const App = () => {
-  // const dispatch = useDispatch();
-  // const { addUser } = bindActionCreators(actionCreators, dispatch);
-
-  // const getUserData = async (token) => {
-  //   let resp = await fetch('/db/user', {
-  //     method: "GET",
-  //     headers: { "Authorization": `Bearer ${token}` },
-  //   })
-  //   const user = await resp.json();
-  //   console.log(user)
-  //   addUser(user)
-  // }
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem('retroToken')
-  //   if (token) {
-  //     console.log('LOCAL STORAGE CONTAINS TOKEN')
-  //     getUserData(token)
-  //   }
-  // }, []);
-
   return (
-    <div className="App">
+    <div className="App__container">
       <Routes>
         <Route path='/' element={<Profile />} />
         <Route path='/login' element={<Login />} />
