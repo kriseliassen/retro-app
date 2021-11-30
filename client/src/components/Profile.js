@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { actionCreators } from '../state';
 import { bindActionCreators } from 'redux';
 import JoinTeam from './JoinTeam';
+import CreateTeam from './CreateTeam';
 
 const Profile = () => {
   const user = useSelector(state => state.user);
@@ -18,10 +19,6 @@ const Profile = () => {
     setTeams(teamData)
   }
 
-  useEffect(() => {
-    getTeams()
-  }, [])
-
   const logOut = () => {
     localStorage.removeItem('retroToken')
     navigate('/login')
@@ -34,29 +31,34 @@ const Profile = () => {
     })
     const userData = await resp.json();
     if (userData.error) {
+      console.log(userData.error)
       logOut();
       return;
     }
-    console.log('USER.USER TO STATE', userData.user)
     addUser(userData)
   }
 
   useEffect(() => {
+    getTeams()
     const token = localStorage.getItem('retroToken')
     if(!token) {
       navigate('/login')
     } else if (!user.user) {
       getUserData(token)
     }
-  }, []);
+    console.log('test')
+  }, [user]);
+
   console.log('STATE', user)
   return (
     <div>
       <button onClick={logOut}>Log out</button>
       Profile
-      {user.user ? <h1>Hello, {user.user.first_name}</h1> : ''}
-      {user.user ? <h2>Your team is {user.user.team_name}</h2> : ''}
-      {(teams && user.user.team_name === null) && <JoinTeam teams={teams} />}
+      {user.user && <h1>Hello, {user.user?.first_name}</h1>}
+      {user.user?.team_name && <p>Your team is {user.user.team_name}</p>}
+      <JoinTeam teams={teams} />
+      {/* {(teams && user.user?.team_name == null) && <JoinTeam teams={teams} />} */}
+      {(user.user?.team_name == null) && <CreateTeam />}
     </div>
   )
 }
