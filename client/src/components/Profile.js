@@ -32,13 +32,13 @@ const Profile = () => {
       method: "GET",
       headers: { "Authorization": `Bearer ${token}` },
     })
-    const user = await resp.json();
-  
-    if (user.error) {
+    const userData = await resp.json();
+    if (userData.error) {
       logOut();
       return;
     }
-    addUser(user)
+    console.log('USER.USER TO STATE', userData.user)
+    addUser(userData)
   }
 
   useEffect(() => {
@@ -49,12 +49,13 @@ const Profile = () => {
       getUserData(token)
     }
   }, []);
+  console.log('STATE', user)
   return (
     <div>
       <button onClick={logOut}>Log out</button>
       Profile
       {user.user ? <h1>Hello, {user.user.first_name}</h1> : ''}
-      {user.user ? <h1>Your team is {user.user.team_name}</h1> : ''}
+      {user.user ? <h2>Your team is {user.user.team_name}</h2> : ''}
       {(teams && user.user.team_name === null) && <JoinTeam teams={teams} />}
     </div>
   )

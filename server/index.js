@@ -46,7 +46,7 @@ app.patch('/db/users/:id', async (req, res) => {
   const teamJoined = await getTeamByName(teamName.toLowerCase())
   const updatedUser = await getUserById(id)
   delete updatedUser.password
-  res.json({...updatedUser, team_name: teamJoined.name})
+  res.json({user: {...updatedUser, team_name: teamJoined.name}})
 })
 
 app.get('/db/user', async (req, res) => {
@@ -79,7 +79,8 @@ app.post('/db/users/signup', async (req, res) => {
   await addUser({ ...req.body, password: hashedPassword })
   const createdUser = await getUserByEmail(email);
   const token = JWT.sign({ email }, secret, { expiresIn: '1d' })
-  res.status(201).json({ token, user: {first_name: createdUser.first_name, id: createdUser.id } })
+  delete createdUser.password
+  res.status(201).json({ token, user: {...createdUser, team_name: null} })
 })
 
 app.post('/db/users/login', async (req, res) => {
@@ -92,7 +93,9 @@ app.post('/db/users/login', async (req, res) => {
   const passwordMatches = await bcrypt.compare(password, user.password)
   if (passwordMatches) {
     const token = JWT.sign({ email }, secret, { expiresIn: '1d' })
-    res.status(201).json({ token, user: {first_name: user.first_name, id: user.id } })
+    const team = user.team_id !== null ? await getTeamById(user.team_id) : null;
+    delete user.password
+    res.status(201).json({ token, user: {...user, team_name: team.name || null }})
     return
   } else {
     res.status(400).json({ message: 'The details provided are not correct.' })

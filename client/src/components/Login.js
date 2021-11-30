@@ -25,12 +25,13 @@ const Login = () => {
       body: JSON.stringify(data)
     })
     const userData = await response.json()
+    console.log(userData)
     if(!userData.token) {
       setError(userData.message);
       return;
     }
     localStorage.setItem('retroToken', JSON.stringify(userData.token));
-    addUser({ name: userData.user.name, id: userData.user.id });
+    addUser(userData);
     navigate('/');
   };
 
