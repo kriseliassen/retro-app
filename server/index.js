@@ -1,5 +1,5 @@
 const express = require('express')
-const { teams, users, getUserByEmail, addUser, addTeam, deleteUserByEmail, getTeamByName } = require('./src/db/functions.js')
+const { teams, users, getUserByEmail, getUserById, addUser, addTeam, deleteUserByEmail, getTeamByName, assignTeamToUser } = require('./src/db/functions.js')
 const bcrypt = require('bcrypt')
 const app = express()
 const port = 3001
@@ -25,15 +25,28 @@ app.get('/db/teams/:name', async (req, res) => {
 })
 
 app.post('/db/teams', async (req, res) => {
-  await addTeam(req.body.name);
-  const team = await getTeamByName(req.body.name);
-  console.log(team)
-  res.json(team)
+  const {userId, teamName} = req.body
+  await addTeam(teamName);
+  const team = await getTeamByName(teamName.toLowerCase());
+  console.log('team', team);
+  await assignTeamToUser(userId, teamName)
+  const updatedUser = await getUserById(userId)
+  delete updatedUser.password
+  res.json({user: updatedUser, team: team})
 })
 
 app.get('/db/users', async (req, res) => {
   const usersData = await users()
   res.json(usersData)
+})
+
+app.patch('/db/users/:id', async (req, res) => {
+  const { id } = req.params;
+  const { teamId } = req.body;
+  await assignTeamToUser(id, teamId)
+  const updatedUser = await getUserById(id)
+  delete updatedUser.password
+  res.json(updatedUser)
 })
 
 app.get('/db/user', async (req, res) => {

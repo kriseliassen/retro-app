@@ -13,6 +13,10 @@ module.exports ={
         const { rows } = await db.query(db.GET_USER_BY_EMAIL, [email]);
         return rows[0];
     },
+    getUserById: async id => {
+        const { rows } = await db.query(db.GET_USER_BY_ID, [id]);
+        return rows[0];
+    },
     addUser: async (user) => {
         await db.query(db.ADD_USER, Object.values(user));
         return;
@@ -29,4 +33,8 @@ module.exports ={
         const { rows } = await db.query(db.GET_TEAM_BY_NAME, [name]);
         return rows[0];
     },
+    assignTeamToUser: async (userId, teamName) => {
+        await db.query(db.ASSIGN_TEAM_TO_USER, [teamName, userId]);
+        return;
+    }
 }

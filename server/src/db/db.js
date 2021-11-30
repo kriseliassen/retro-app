@@ -18,6 +18,10 @@ module.exports = {
     SELECT * FROM users
     WHERE lower(email) = $1
     `,
+  GET_USER_BY_ID: `
+  SELECT * FROM users
+  WHERE id = $1
+  `,
   ADD_USER: `
     INSERT INTO users (first_name, last_name, email, password)
     VALUES ($1, $2, $3, $4)
@@ -34,5 +38,9 @@ module.exports = {
     SELECT * FROM teams
     WHERE lower(name) = $1
   `,
-  
+  ASSIGN_TEAM_TO_USER: `
+    UPDATE users SET team_id =
+    (SELECT id FROM teams WHERE name = $1)
+    WHERE id = $2
+  `
 };
