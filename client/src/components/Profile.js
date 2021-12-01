@@ -19,6 +19,14 @@ const Profile = () => {
     setTeams(teamData)
   }
 
+  const getTemplates = async token => {
+    const response = await fetch('/db/teams', {
+      method: "GET",
+      headers: { "Authorization": `Bearer ${token}` }});
+    const teamData = await response.json();
+    setTeams(teamData)
+  }
+
   const logOut = () => {
     localStorage.removeItem('retroToken')
     navigate('/login')

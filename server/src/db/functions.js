@@ -41,12 +41,12 @@ module.exports ={
         const { rows } = await db.query(db.GET_TEAM_BY_ID, [id]);
         return rows[0];
     },
-    getTemplateIdByTeamId: async team_id => {
-        const { rows } = await db.query(db.GET_TEMPLATEID_BY_TEAMID, [team_id]);
+    getTemplateNamesByTeamId: async id => {
+        const { rows } = await db.query(db.GET_TEMPLATENAMES_BY_TEAMID, [id]);
         return rows;
     },
-    getTemplateNameByTemplateId: async template_id => {
-        const { rows } = await db.query(db.GET_TEMPLATENAME_BY_TEMPLATEID, [template_id]);
-        return rows[0].name;
+    getTemplates: async () => {
+        const { rows } = await db.query(db.GET_TEMPLATES);
+        return rows;
     },
 }

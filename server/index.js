@@ -1,6 +1,6 @@
 const verifyUser = require('./middleware/verifyUser')
 const express = require('express')
-const { teams, users, getUserByEmail, getUserById, getTeamById, addUser, addTeam, deleteUserByEmail, getTeamByName, assignTeamToUser, getTemplateIdByTeamId, getTemplateNameByTemplateId } = require('./src/db/functions.js')
+const { teams, users, getUserByEmail, getUserById, getTeamById, addUser, addTeam, deleteUserByEmail, getTeamByName, assignTeamToUser, getTemplateNamesByTeamId } = require('./src/db/functions.js')
 const bcrypt = require('bcrypt')
 const app = express()
 const port = 3001
@@ -17,7 +17,12 @@ app.use(cors());
 app.get('/db/teams', verifyUser, async (req, res) => {
   const teamsData = await teams()
   res.json(teamsData)
-})
+});
+
+app.get('/db/templates', verifyUser, async (req, res) => {
+  const templatesData = await getTemplates();
+  res.json(templatesData);
+});
 
 // MAYBE NOT USING
 // app.get('/db/teams/:name', verifyUser, async (req, res) => {
@@ -63,14 +68,9 @@ app.get('/db/user', verifyUser, async (req, res) => {
     const { decodedToken, token } = res.locals;
     const user = await getUserByEmail(decodedToken.email);
     const team = user.team_id !== null ? await getTeamById(user.team_id) : null;
-    // GET TEMPLATES ID BY TEAM ID
-    const templateIds = user.team_id !== null ? await getTemplateIdByTeamId(user.team_id) : null;
-    console.log('TEMPLATE IDS', templateIds)
-    // GET NAMES OF TEMPLATES BY TEMPLATE ID
-    // const templateNames = templateIds!== null ? await getTemplateNameByTemplateId(templateIds[0].templates_id) : []
-    
-    // ADD NAMES ARRAY INTO USER THAT WE RETURN
-    
+    const templateNames = await getTemplateNamesByTeamId(user.team_id);
+    const templates = templateNames.map(item => item.name);
+    user.templates = templates;
     delete user.password
     user.team_name = team !== null ? team.name : null;
     res.status(201).json({ token, user })
@@ -112,8 +112,11 @@ app.post('/db/users/login', async (req, res) => {
   if (passwordMatches) {
     const token = JWT.sign({ email }, secret, { expiresIn: '8h' })
     const team = user.team_id !== null ? await getTeamById(user.team_id) : null;
-    delete user.password
     user.team_name = team !== null ? team.name : null;
+    const templateNames = await getTemplateNamesByTeamId(user.team_id);
+    const templates = templateNames.map(item => item.name);
+    user.templates = templates;
+    delete user.password
     res.status(201).json({ token, user })
     return
   } else {
