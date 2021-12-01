@@ -46,5 +46,13 @@ module.exports = {
   GET_TEAM_BY_ID: `
     SELECT * FROM teams
     WHERE id = $1
-  `
+  `,
+  GET_TEMPLATEID_BY_TEAMID: `
+    SELECT templates_id FROM teamstemplates
+    WHERE team_id = $1
+  `,
+  GET_TEMPLATENAME_BY_TEMPLATEID: `
+    SELECT name FROM templates
+    WHERE id = $1
+  `,
 };

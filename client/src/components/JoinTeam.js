@@ -11,10 +11,12 @@ const JoinTeam = ({ teams }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async data => {
+    const token = localStorage.getItem('retroToken');
     const response = await fetch(`/db/users/${user.user.id}`, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(data)
     })

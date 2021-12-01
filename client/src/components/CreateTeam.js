@@ -11,17 +11,18 @@ const CreateTeam = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async data => {
+    const token = localStorage.getItem('retroToken');
     const response = await fetch(`/db/teams`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({...data, userId: user.user.id })
     })
     
     const userData = await response.json()
-    console.log('userdata', userData)
-    addUser({user: userData});
+    addUser(userData);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

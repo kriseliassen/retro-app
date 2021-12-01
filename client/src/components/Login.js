@@ -25,7 +25,6 @@ const Login = () => {
       body: JSON.stringify(data)
     })
     const userData = await response.json()
-    console.log(userData)
     if(!userData.token) {
       setError(userData.message);
       return;

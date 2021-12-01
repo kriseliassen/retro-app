@@ -25,7 +25,7 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('retroToken')
+    const token = localStorage.getItem('retroToken');
     if(!token) {
       navigate('/login')
       return;

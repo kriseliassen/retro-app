@@ -11,6 +11,7 @@ const verifyUser = (req, res, next) => {
   const token = (req.headers.authorization.replace('Bearer ', '').replaceAll('"', ''));
   const decodedToken = JWT.verify(token, secret)
   res.locals.decodedToken = decodedToken;
+  res.locals.token = token;
   next()
   } catch(err) {
     res.status(401).json({ error: err.message });
