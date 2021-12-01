@@ -46,6 +46,8 @@ const Profile = () => {
     getTemplates(token);
   }, []);
 
+  const chosenFormData = templates?.find(item => item.name === user.user?.templates[0]);
+
   return (
     <div>
       <button onClick={logOut}>Log out</button>
@@ -54,10 +56,11 @@ const Profile = () => {
       {user.user?.team_name && <p>Your team is {user.user.team_name}</p>}
       {user.user?.team_name === null && <p>You are not assigned to a team. Please join a team or create a new team.</p>}
       <JoinTeam teams={teams} />
-      {/* {(teams && user.user?.team_name == null) && <JoinTeam teams={teams} />} */}
       {(user.user?.team_name == null) && <CreateTeam />}
-      {user.user?.templates?.length > 0? `HAS TEMPLATE ${user.user.templates[0]}` : "NO TEMPLATES"}
       {(templates?.length > 0 && user.user?.templates?.length === 0) && templates.map(item => (<TemplateCard template={item}/>))}
+      {chosenFormData && <TemplateCard template={chosenFormData} />}
+
+      
     </div>
   )
 }
