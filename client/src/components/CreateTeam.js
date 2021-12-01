@@ -25,7 +25,7 @@ const CreateTeam = () => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="Team name" {...register("teamName", {required: true, maxLength: 80})} />
+      <input type="text" placeholder="Team name" {...register("teamName", {required: true, maxLength: 80})} autoComplete="off" />
       {errors.teamName?.type === 'required' && "Please enter a team name"}
       <input type="submit" value="Create team"/>
     </form>

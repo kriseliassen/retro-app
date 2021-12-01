@@ -41,23 +41,28 @@ const SignUp = () => {
             type="text" 
             placeholder="First name" 
             {...register("firstName", { required: true, min: 3 })}
+            autoComplete="off"
             className="Form__input"/>
             {errors.firstName?.type === 'required' && "First name is required"}
           <input 
             type="text" 
             placeholder="Last name" 
             {...register("lastName", { required: true, min: 3 })}
+            autoComplete="off"
             className="Form__input"/>
             {errors.lastName?.type === 'required' && "Last name is required"}
           <input 
             type="text" 
             placeholder="Email" 
-            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}  className="Form__input"/>
+            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}  
+            autoComplete="off"
+            className="Form__input"/>
             {errors.email?.type === 'required' && "Email is required"}
           <input 
             type="password" 
             placeholder="Password" 
-            {...register("password", { required: true, min: 6 })}  
+            {...register("password", { required: true, min: 6 })}
+            autoComplete="off"
             className="Form__input"/>
             {errors.firstName?.type === 'required' && "Password is required"}
           <input 

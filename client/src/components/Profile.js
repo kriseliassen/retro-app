@@ -1,16 +1,14 @@
 import React , { useEffect, useState }from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { actionCreators } from '../state';
-import { bindActionCreators } from 'redux';
 import JoinTeam from './JoinTeam';
 import CreateTeam from './CreateTeam';
+import { fetchUser } from '../state/actionCreators';
 
 const Profile = () => {
   const user = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { addUser } = bindActionCreators(actionCreators, dispatch);
   const [teams, setTeams] = useState([]);
 
   const getTeams = async () => {
@@ -24,27 +22,13 @@ const Profile = () => {
     navigate('/login')
   }
 
-  const getUserData = async (token) => {
-    let resp = await fetch('/db/user', {
-      method: "GET",
-      headers: { "Authorization": `Bearer ${token}` },
-    })
-    const userData = await resp.json();
-    if (userData.error) {
-      console.log(userData.error)
-      logOut();
-      return;
-    }
-    addUser(userData)
-  }
-
   useEffect(() => {
     getTeams()
     const token = localStorage.getItem('retroToken')
     if(!token) {
       navigate('/login')
     } else if (!user.user) {
-      getUserData(token)
+      dispatch(fetchUser(token))
     }
     console.log('test')
   }, [user]);
@@ -56,6 +40,7 @@ const Profile = () => {
       Profile
       {user.user && <h1>Hello, {user.user?.first_name}</h1>}
       {user.user?.team_name && <p>Your team is {user.user.team_name}</p>}
+      {user.user?.team_name === null && <p>You are not assigned to a team. Please join a team or create a new team.</p>}
       <JoinTeam teams={teams} />
       {/* {(teams && user.user?.team_name == null) && <JoinTeam teams={teams} />} */}
       {(user.user?.team_name == null) && <CreateTeam />}

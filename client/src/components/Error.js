@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Error = ({ message, setError }) => {
-  setTimeout(() => {
-    setError('')
-  }, 3000)
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setError('')
+    }, 3000)
+    return () => {
+      clearTimeout(delay)
+    }
+  }, [])
   return (
     <div>
       {message}
