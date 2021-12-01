@@ -18,6 +18,7 @@ export const fetchUser = token => async dispatch => {
       // logOut();
       return;
     }
+    console.log('ACTIONCREATOR FETCH USER', userData)
     dispatch(addUser(userData))
   } catch (err){
     console.log(err)

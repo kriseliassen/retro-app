@@ -11,8 +11,10 @@ const Profile = () => {
   const dispatch = useDispatch();
   const [teams, setTeams] = useState([]);
 
-  const getTeams = async () => {
-    const response = await fetch('/db/teams');
+  const getTeams = async token => {
+    const response = await fetch('/db/teams', {
+      method: "GET",
+      headers: { "Authorization": `Bearer ${token}` }});
     const teamData = await response.json();
     setTeams(teamData)
   }
@@ -23,17 +25,15 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    getTeams()
     const token = localStorage.getItem('retroToken')
     if(!token) {
       navigate('/login')
     } else if (!user.user) {
       dispatch(fetchUser(token))
+      getTeams(token)
     }
-    console.log('test')
-  }, [user]);
+  }, []);
 
-  console.log('STATE', user)
   return (
     <div>
       <button onClick={logOut}>Log out</button>

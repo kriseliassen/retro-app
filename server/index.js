@@ -1,3 +1,4 @@
+const verifyUser = require('./middleware/verifyUser')
 const express = require('express')
 const { teams, users, getUserByEmail, getUserById, getTeamById, addUser, addTeam, deleteUserByEmail, getTeamByName, assignTeamToUser } = require('./src/db/functions.js')
 const bcrypt = require('bcrypt')
@@ -13,16 +14,18 @@ const secret = process.env.JWT_SECRET;
 
 app.use(cors());
 
-app.get('/db/teams', async (req, res) => {
+app.get('/db/teams', verifyUser, async (req, res) => {
   const teamsData = await teams()
   res.json(teamsData)
 })
 
-app.get('/db/teams/:name', async (req, res) => {
-  const { name } = req.params;
-  const team = await getTeamByName(name.toLowerCase());
-  res.json(team)
-})
+// MAYBE NOT USING
+
+// app.get('/db/teams/:name', verifyUser, async (req, res) => {
+//   const { name } = req.params;
+//   const team = await getTeamByName(name.toLowerCase());
+//   res.json(team)
+// })
 
 app.post('/db/teams', async (req, res) => {
   const {userId, teamName} = req.body
@@ -53,15 +56,14 @@ app.patch('/db/users/:id', async (req, res) => {
   }
 })
 
-app.get('/db/user', async (req, res) => {
+app.get('/db/user', verifyUser, async (req, res) => {
   try {
-    const token = (req.headers.authorization.replace('Bearer ', '').replaceAll('"', ''));
-    const decodedToken = JWT.verify(token, secret)
+    const { decodedToken } = res.locals;
     const user = await getUserByEmail(decodedToken.email);
     const team = user.team_id !== null ? await getTeamById(user.team_id) : null;
     delete user.password
     user.team_name = team !== null ? team.name : null;
-    res.status(201).json({ token, user })
+    res.status(201).json({ token: decodedToken, user })
   } catch (err) {
     res.status(401).json({ error: err.message });
   }
