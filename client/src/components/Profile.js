@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import JoinTeam from './JoinTeam';
 import CreateTeam from './CreateTeam';
+import TemplateCard from './TemplateCard';
 import { fetchUser } from '../state/actionCreators';
 
 const Profile = () => {
@@ -10,6 +11,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [teams, setTeams] = useState([]);
+  const [templates, setTemplates] = useState([]);
 
   const getTeams = async token => {
     const response = await fetch('/db/teams', {
@@ -20,11 +22,11 @@ const Profile = () => {
   }
 
   const getTemplates = async token => {
-    const response = await fetch('/db/teams', {
+    const response = await fetch('/db/templates', {
       method: "GET",
       headers: { "Authorization": `Bearer ${token}` }});
-    const teamData = await response.json();
-    setTeams(teamData)
+    const templatesData = await response.json();
+    setTemplates(templatesData)
   }
 
   const logOut = () => {
@@ -40,7 +42,8 @@ const Profile = () => {
     } else if (!user.user) {
       dispatch(fetchUser(token))
     } 
-      getTeams(token);
+    getTeams(token);
+    getTemplates(token);
   }, []);
 
   return (
@@ -53,6 +56,7 @@ const Profile = () => {
       <JoinTeam teams={teams} />
       {/* {(teams && user.user?.team_name == null) && <JoinTeam teams={teams} />} */}
       {(user.user?.team_name == null) && <CreateTeam />}
+      {templates.length > 0 && templates.map(item => (<TemplateCard template={item}/>))}
     </div>
   )
 }

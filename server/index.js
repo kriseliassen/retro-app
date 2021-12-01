@@ -1,6 +1,10 @@
 const verifyUser = require('./middleware/verifyUser')
 const express = require('express')
-const { teams, users, getUserByEmail, getUserById, getTeamById, addUser, addTeam, deleteUserByEmail, getTeamByName, assignTeamToUser, getTemplateNamesByTeamId } = require('./src/db/functions.js')
+const { 
+  teams, users, getUserByEmail, getUserById, getTeamById, addUser, 
+  addTeam, deleteUserByEmail, getTeamByName, assignTeamToUser, 
+  getTemplateNamesByTeamId, getTemplates, assignTemplateToTeam
+} = require('./src/db/functions.js')
 const bcrypt = require('bcrypt')
 const app = express()
 const port = 3001
@@ -22,6 +26,13 @@ app.get('/db/teams', verifyUser, async (req, res) => {
 app.get('/db/templates', verifyUser, async (req, res) => {
   const templatesData = await getTemplates();
   res.json(templatesData);
+});
+
+app.post('/db/teamstemplates', verifyUser, async (req, res) => {
+  console.log(req.body)
+  const {templateName, teamId} = req.body
+  await assignTemplateToTeam(teamId, templateName.toLowerCase());
+  res.status(201).json(req.body);
 });
 
 // MAYBE NOT USING

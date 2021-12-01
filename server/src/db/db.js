@@ -51,13 +51,11 @@ module.exports = {
     SELECT name FROM teamstemplatesview
     WHERE id = $1
   `,
-  GET_TEMPLATES: 'SELECT * FROM templates'
-  // GET_TEMPLATEID_BY_TEAMID: `
-  //   SELECT templates_id FROM teamstemplates
-  //   WHERE team_id = $1
-  // `,
-  // GET_TEMPLATENAME_BY_TEMPLATEID: `
-  //   SELECT name FROM templates
-  //   WHERE id = $1
-  // `,
+  GET_TEMPLATES: 'SELECT * FROM templates',
+  ASSIGN_TEMPLATE_TO_TEAM: `
+    INSERT INTO teamstemplates (team_id, templates_id)
+    VALUES (
+    (SELECT id FROM teams WHERE id = $1), (SELECT id FROM templates WHERE name = $2)
+    )
+  `,
 };

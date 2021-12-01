@@ -49,4 +49,10 @@ module.exports ={
         const { rows } = await db.query(db.GET_TEMPLATES);
         return rows;
     },
+    assignTemplateToTeam: async (teamId, templateName) => {
+        console.log(teamId, templateName)
+        await db.query(db.ASSIGN_TEMPLATE_TO_TEAM, [teamId, templateName]);
+        return;
+    },
+    
 }
