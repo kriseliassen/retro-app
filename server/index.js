@@ -31,7 +31,7 @@ app.get('/db/templates', verifyUser, async (req, res) => {
 app.post('/db/teamstemplates', verifyUser, async (req, res) => {
   console.log(req.body)
   const {templateName, teamId} = req.body
-  await assignTemplateToTeam(teamId, templateName.toLowerCase());
+  await assignTemplateToTeam(teamId, templateName);
   res.status(201).json(req.body);
 });
 
@@ -66,9 +66,13 @@ app.patch('/db/users/:id', verifyUser,  async (req, res) => {
     const { teamName } = req.body;
     await assignTeamToUser(id, teamName)
     const teamJoined = await getTeamByName(teamName.toLowerCase())
-    const updatedUser = await getUserById(id)
-    delete updatedUser.password
-    res.json({user: {...updatedUser, team_name: teamJoined.name}, token})
+    const user = await getUserById(id)
+    delete user.password
+    const templateNames = await getTemplateNamesByTeamId(user.team_id);
+    const templates = templateNames.map(item => item.name);
+    user.templates = templates;
+    user.team_name = teamJoined.name
+    res.json({user, token})
   } catch (err) {
     res.status(401).json({ error: err.message });
   }

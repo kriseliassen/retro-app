@@ -56,7 +56,8 @@ const Profile = () => {
       <JoinTeam teams={teams} />
       {/* {(teams && user.user?.team_name == null) && <JoinTeam teams={teams} />} */}
       {(user.user?.team_name == null) && <CreateTeam />}
-      {templates.length > 0 && templates.map(item => (<TemplateCard template={item}/>))}
+      {user.user?.templates?.length > 0? `HAS TEMPLATE ${user.user.templates[0]}` : "NO TEMPLATES"}
+      {(templates?.length > 0 && user.user?.templates?.length === 0) && templates.map(item => (<TemplateCard template={item}/>))}
     </div>
   )
 }
