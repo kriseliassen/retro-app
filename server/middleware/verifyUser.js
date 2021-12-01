@@ -9,7 +9,6 @@ const verifyUser = (req, res, next) => {
     return
   }
   const token = (req.headers.authorization.replace('Bearer ', '').replaceAll('"', ''));
-  console.log('TOKEN FROM MIDDLEWARE',token)
   const decodedToken = JWT.verify(token, secret)
   res.locals.decodedToken = decodedToken;
   next()

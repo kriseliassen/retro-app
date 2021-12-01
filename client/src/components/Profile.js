@@ -28,10 +28,11 @@ const Profile = () => {
     const token = localStorage.getItem('retroToken')
     if(!token) {
       navigate('/login')
+      return;
     } else if (!user.user) {
       dispatch(fetchUser(token))
-      getTeams(token)
-    }
+    } 
+      getTeams(token);
   }, []);
 
   return (
