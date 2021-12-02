@@ -44,7 +44,7 @@ const Profile = () => {
     } 
     getTeams(token);
     getTemplates(token);
-  }, []);
+  }, [user]);
 
   const chosenFormData = templates?.find(item => item.name === user.user?.templates[0]);
 

@@ -1,13 +1,14 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { addUser } from '../state/actionCreators';
 
 
 const TemplateCard = ({template}) => {
-  console.log('TEMPLATECARD', template)
   const {name, description} = template;
   const user = useSelector(state => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClickChoose = async () => {
     const token = localStorage.getItem('retroToken');
@@ -19,7 +20,11 @@ const TemplateCard = ({template}) => {
       },
       body: JSON.stringify({templateName: name, teamId: user.user.team_id})
     })
+    const updatedUser = {...user };
+    updatedUser.user.templates = [name];
+    dispatch(addUser(updatedUser));
   }
+
   const handleClickStart = async () => {
     navigate('/form');
   }
