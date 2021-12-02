@@ -25,7 +25,6 @@ const Form = () => {
         body: JSON.stringify({template_name: user.user.templates[0]})
       })
       const questionsData = await resp.json()
-      console.log(questionsData)
       setQuestions(questionsData)
     } catch(err) {
       console.log(err)
