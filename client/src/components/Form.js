@@ -44,7 +44,7 @@ useEffect(() => {
       I am the form
       <form onSubmit={handleSubmit(onSubmit)}>
         {questions?.map(item => (
-          <div>
+          <div  key={item.id}>
             <label>{item.question}</label>
             <input type={item.type} {...register(`${item.id}`)} />
           </div>
