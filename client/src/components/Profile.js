@@ -69,6 +69,7 @@ const Profile = () => {
       }
       <JoinTeam teams={teams} />
       {(user.user?.team_name == null) && <CreateTeam />}
+
       {(templates?.length > 0 && user.user?.templates?.length === 0) && 
       <div className="Profile__TemplateCardsContainer">
         <p className="Profile__TemplateCardsContainer--header">
@@ -77,7 +78,11 @@ const Profile = () => {
         {templates.map(item => (<TemplateCard template={item} key={item.name} />))}
       </div>
       }
-      {chosenFormData && <TemplateCard template={chosenFormData} />}
+      {chosenFormData && 
+      <div className="Profile__TemplateCardsContainer">
+        <TemplateCard template={chosenFormData} />
+      </div>
+      }
     </div>
   )
 }

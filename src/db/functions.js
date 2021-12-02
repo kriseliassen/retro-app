@@ -50,9 +50,12 @@ module.exports ={
         return rows;
     },
     assignTemplateToTeam: async (teamId, templateName) => {
-        console.log(teamId, templateName)
         await db.query(db.ASSIGN_TEMPLATE_TO_TEAM, [teamId, templateName]);
         return;
     },
-    
+    getQuestionsByTemplateName: async (templateName) => {
+        const templateId = await db.query(db.GET_TEMPLATEID_BY_NAME, [templateName]);
+        const { rows } = await db.query(db.GET_QUESTIONS_BY_TEMPLATEID, [templateId.rows[0].id]);
+        return rows;
+    },
 }

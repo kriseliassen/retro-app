@@ -3,7 +3,7 @@ const express = require('express')
 const { 
   teams, users, getUserByEmail, getUserById, getTeamById, addUser, 
   addTeam, deleteUserByEmail, getTeamByName, assignTeamToUser, 
-  getTemplateNamesByTeamId, getTemplates, assignTemplateToTeam
+  getTemplateNamesByTeamId, getTemplates, assignTemplateToTeam, getQuestionsByTemplateName
 } = require('./src/db/functions.js')
 const bcrypt = require('bcrypt')
 const app = express()
@@ -20,7 +20,7 @@ const secret = process.env.JWT_SECRET;
 app.use(cors());
 
 // Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, './client/build')));
+// app.use(express.static(path.resolve(__dirname, './client/build')));
 
 app.get('/db/teams', verifyUser, async (req, res) => {
   const teamsData = await teams()
@@ -32,8 +32,13 @@ app.get('/db/templates', verifyUser, async (req, res) => {
   res.json(templatesData);
 });
 
+app.post('/db/form', verifyUser, async (req, res) => {
+  const { template_name } = req.body;
+  const questions = await getQuestionsByTemplateName(template_name);
+  res.json(questions);
+})
+
 app.post('/db/teamstemplates', verifyUser, async (req, res) => {
-  console.log(req.body)
   const {templateName, teamId} = req.body
   await assignTemplateToTeam(teamId, templateName);
   res.status(201).json(req.body);
@@ -144,9 +149,9 @@ app.post('/db/users/login', async (req, res) => {
 })
 
 // All other GET requests not handled before will return our React app
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+// });
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
