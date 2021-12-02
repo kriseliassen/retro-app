@@ -41,8 +41,13 @@ const Form = () => {
 
   return (
     <div className="Form__container">
-      <Link to="/" className="Link--go-back"><BiArrowBack /> Back to profile</Link>
+      <Link to="/" className="Link--go-back">
+        <BiArrowBack /> 
+        Back to profile
+      </Link>
       <h1 className="Form__header">
+        <span className="Form__header--intro">Retro:</span>
+        <br />
         {user.user?.templates[0]}
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}className="Form__form">
