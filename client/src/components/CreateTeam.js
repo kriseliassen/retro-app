@@ -25,11 +25,21 @@ const CreateTeam = () => {
     addUser(userData);
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="Team name" {...register("teamName", {required: true, maxLength: 80})} autoComplete="off" />
-      {errors.teamName?.type === 'required' && "Please enter a team name"}
-      <input type="submit" value="Create team"/>
-    </form>
+    <div className="CreateTeam__container">
+      <form onSubmit={handleSubmit(onSubmit)} className="CreateTeam__form">
+        <input 
+          type="text" 
+          placeholder="Team name" 
+          {...register("teamName", {required: true, maxLength: 80})} 
+          autoComplete="off" 
+          className="CreateTeam__form--input"/>
+        {errors.teamName?.type === 'required' && "Please enter a team name"}
+        <input 
+        type="submit" 
+        value="Create team"
+        className="btn-form"/>
+      </form>
+    </div>
   )
 }
 

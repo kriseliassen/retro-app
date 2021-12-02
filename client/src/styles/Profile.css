@@ -1,0 +1,24 @@
+.Profile__container {
+  
+}
+
+.Profile__TemplateCardsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 0.75em
+}
+
+.btn--form , .btn--logout{
+    background: var(--color-pink);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    padding: 0.5em 1em;
+    border-radius: 100px;
+}
+.btn--logout{
+    background: transparent;
+    border: 1px solid var(--color-pink);
+    color: var(--color-pink);
+}

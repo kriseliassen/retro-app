@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addUser } from '../state/actionCreators';
+import '../styles/TemplateCard.css'
 
 
 const TemplateCard = ({template}) => {
@@ -31,15 +32,14 @@ const TemplateCard = ({template}) => {
 
 
   return (
-    <div>
-      <p>{name}</p>
-      <p>{description}</p>
+    <div className="TemplateCard__container">
+      <p className="TemplateCard__name">{name}</p>
+      <p className="TemplateCard__description">{description}</p>
       {
         user.user?.templates?.length > 0 
-        ?<button onClick={handleClickStart}>Start Retro</button>
-        :<button onClick={handleClickChoose}>Choose this</button>
+        ?<button onClick={handleClickStart} className="btn--form ">Start Retro</button>
+        :<button onClick={handleClickChoose} className="btn--form rightaligned">Choose this</button>
       }
-      
     </div>
   )
 }

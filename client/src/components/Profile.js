@@ -5,6 +5,7 @@ import JoinTeam from './JoinTeam';
 import CreateTeam from './CreateTeam';
 import TemplateCard from './TemplateCard';
 import { fetchUser } from '../state/actionCreators';
+import '../styles/Profile.css'
 
 const Profile = () => {
   const user = useSelector(state => state.user);
@@ -49,18 +50,34 @@ const Profile = () => {
   const chosenFormData = templates?.find(item => item.name === user.user?.templates[0]);
 
   return (
-    <div>
-      <button onClick={logOut}>Log out</button>
-      Profile
-      {user.user && <h1>Hello, {user.user?.first_name}</h1>}
-      {user.user?.team_name && <p>Your team is {user.user.team_name}</p>}
-      {user.user?.team_name === null && <p>You are not assigned to a team. Please join a team or create a new team.</p>}
+    <div className="Profile__container">
+      <button 
+        onClick={logOut}
+        className="btn--logout"
+      >
+        Log out
+      </button>
+      <p className="Profile__header">My profile</p>
+      {user.user 
+        && <h1 className="Profile__greeting">Hello, {user.user?.first_name}</h1>
+      }
+      {user.user?.team_name 
+        && <p className="Profile__team">Team {user.user.team_name}</p>
+      }
+      {user.user?.team_name === null 
+        && <p className="Profile__noteam">You are not assigned to a team. Please join a team or create a new team.</p>
+      }
       <JoinTeam teams={teams} />
       {(user.user?.team_name == null) && <CreateTeam />}
-      {(templates?.length > 0 && user.user?.templates?.length === 0) && templates.map(item => (<TemplateCard template={item}/>))}
+      {(templates?.length > 0 && user.user?.templates?.length === 0) && 
+      <div className="Profile__TemplateCardsContainer">
+        <p className="Profile__TemplateCardsContainer--header">
+          Please choose a retro template for your team
+        </p>
+        {templates.map(item => (<TemplateCard template={item} key={item.name} />))}
+      </div>
+      }
       {chosenFormData && <TemplateCard template={chosenFormData} />}
-
-      
     </div>
   )
 }

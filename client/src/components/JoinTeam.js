@@ -25,20 +25,27 @@ const JoinTeam = ({ teams }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <select {...register("teamName", { required: true })}>
-        {/* <option disabled selected>Please select a team</option> */}
-        {teams && (teams.map(team => (
-        <option 
-          value={team.name}
-          key={team.id}>
-            {team.name}
-        </option>
-        )))}
-      </select>
-      {errors.teamName?.type === 'required' && "Please select a team"}
-      <input type="submit" value="Join team"/>
-    </form>
+    <div className="JoinTeam__container">
+      <form 
+        className="JoinTeam__form" 
+        onSubmit={handleSubmit(onSubmit)}>
+        <select {...register("teamName", { required: true })}
+        className="JoinTeam__form--input">
+          {teams && (teams.map(team => (
+          <option 
+            value={team.name}
+            key={team.id}>
+              {team.name}
+          </option>
+          )))}
+        </select>
+        {errors.teamName?.type === 'required' && "Please select a team"}
+        <input 
+          type="submit" 
+          value="Join team" 
+          className="btn-form"/>
+      </form>
+    </div>
 );
 }
 
