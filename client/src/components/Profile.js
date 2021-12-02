@@ -1,5 +1,7 @@
 import React , { useEffect, useState }from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { slide as Menu } from 'react-burger-menu'
 import { useNavigate } from 'react-router-dom';
 import JoinTeam from './JoinTeam';
 import CreateTeam from './CreateTeam';
@@ -63,11 +65,11 @@ const Profile = () => {
 
   return (
     <div className="Profile__container">
-      <button 
+      {/* <button 
         onClick={logOut}
         className="btn--logout">
         Log out
-      </button>
+      </button> */}
       <p className="Profile__header">My profile</p>
       {user.user 
         && <h1 className="Profile__greeting">Hello, {user.user?.first_name}</h1>
