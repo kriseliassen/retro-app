@@ -13,28 +13,34 @@
   font-size: 3rem;
 }
 
-.Form__container,
-.Form {
+.Signup__form__container,
+.Signup__form,
+.Login__form__container,
+.Login__form {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-.Form__container {
+.Signup__form__container,
+.Login__form__container {
   padding: 2em;
   gap: 1em;
 }
 
-.Form {
+.Signup__form,
+.Login__form {
   gap: 1.5em;
 }
 
-.Form__header {
+.Signup__form__header,
+.Login__form__header {
   font-size: 2rem;
 }
 
-.Form__input {
+.Signup__form__input,
+.Login__form__input {
   font-family: var(--ff-sans-serif);
   width: 90%;
   font-size: 1.5rem;
@@ -43,7 +49,8 @@
   border: none;
 }
 
-.Form__button {
+.Signup__form__button,
+.Login__form__button {
   font-family: var(--ff-sans-serif);
   background: var(--color-pink);
   color: white;
@@ -54,6 +61,7 @@
   border-radius: 100px;
 }
 
-.Form__link {
+.Signup__form__link,
+.Login__form__link {
   font-size: 1.25rem;
 }

@@ -35,11 +35,15 @@ const TemplateCard = ({template}) => {
   return (
     <div className="TemplateCard__container">
       <p className="TemplateCard__name">{name}</p>
-      <p className="TemplateCard__description">{description}</p>
+      <p className="TemplateCard__description">{description !== '' ? description : 'There is no description for this template'}</p>
       {
         user.user?.templates?.length > 0 
-        ?<button onClick={handleClickStart} className="btn--form ">Start Retro</button>
-        :<button onClick={handleClickChoose} className="btn--form rightaligned">Choose this</button>
+        ? <button onClick={handleClickStart} className="btn--form btn--bigger">
+          Start Retro
+        </button>
+        : <button onClick={handleClickChoose} className="btn--form btn--rightaligned">
+          Choose this
+        </button>
       }
     </div>
   )

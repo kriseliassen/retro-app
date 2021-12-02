@@ -6,6 +6,7 @@ import CreateTeam from './CreateTeam';
 import TemplateCard from './TemplateCard';
 import { fetchUser } from '../state/actionCreators';
 import '../styles/Profile.css'
+import '../styles/selectTeam.css'
 
 const Profile = () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -77,19 +78,27 @@ const Profile = () => {
       {user.user?.team_name === null 
         && <p className="Profile__noteam">You are not assigned to a team. Please join a team or create a new team.</p>
       }
-     {(user.user?.team_name == null && teams.length > 0) && <JoinTeam teams={teams} />}
+     {(user.user?.team_name == null && teams.length > 0) && (
+     <>
+     <JoinTeam teams={teams} />
+     <p className="Profile__text--or">or</p>
+     </>
+     )}
       {(user.user?.team_name == null) && <CreateTeam />}
 
       {(templates?.length > 0 && user.user?.templates?.length === 0 && user.user?.team_name !== null) && 
       <div className="Profile__TemplateCardsContainer">
         <p className="Profile__TemplateCardsContainer--header">
-          Please choose a retro template for your team
+          There are no retro forms associated with your team. Please choose a form template for your team.
         </p>
         {templates.map(item => (<TemplateCard template={item} key={item.name} />))}
       </div>
       }
       {chosenFormData && 
       <div className="Profile__TemplateCardsContainer">
+        <p className="Profile__text--chosen-form">
+          Your team's form
+        </p>
         <TemplateCard template={chosenFormData} />
       </div>
       }

@@ -1,0 +1,39 @@
+.Profile__text--or {
+  font-size: 1.2rem;
+}
+
+.JoinTeam__container,
+.CreateTeam__container {
+  width: 90%;
+  margin: 0.25em 0;
+}
+
+.JoinTeam__form,
+.CreateTeam__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+.CreateTeam__form--input {
+  border: 1px solid darkgrey;
+}
+.JoinTeam__form--input {
+  border: none;
+}
+.JoinTeam__form--input,
+.CreateTeam__form--input,
+.btn-form {
+  font-size: 1.15rem;
+  font-family: var(--ff-sans-serif);
+  padding: 0.4em 0.57em;
+  border-radius: 8px;
+}
+
+.btn-form {
+  background: var(--color-pink);
+  color: white;
+  border: none;
+  padding: 0.75em 0;
+  border-radius: 100px;
+}
