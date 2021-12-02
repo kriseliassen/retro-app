@@ -8,6 +8,7 @@ import { fetchUser } from '../state/actionCreators';
 import '../styles/Profile.css'
 
 const Profile = () => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const user = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -15,19 +16,27 @@ const Profile = () => {
   const [templates, setTemplates] = useState([]);
 
   const getTeams = async token => {
-    const response = await fetch('/db/teams', {
-      method: "GET",
-      headers: { "Authorization": `Bearer ${token}` }});
-    const teamData = await response.json();
-    setTeams(teamData)
+    try {
+      const response = await fetch(`${SERVER_URL}/db/teams`, {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }});
+      const teamData = await response.json();
+      setTeams(teamData)
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   const getTemplates = async token => {
-    const response = await fetch('/db/templates', {
-      method: "GET",
-      headers: { "Authorization": `Bearer ${token}` }});
-    const templatesData = await response.json();
-    setTemplates(templatesData)
+    try  {
+      const response = await fetch(`${SERVER_URL}/db/templates`, {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }});
+      const templatesData = await response.json();
+      setTemplates(templatesData)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const logOut = () => {
@@ -47,14 +56,15 @@ const Profile = () => {
     getTemplates(token);
   }, [user]);
 
-  const chosenFormData = templates?.find(item => item.name === user.user?.templates[0]);
+  const chosenFormData = user.user?.templates?.length > 0 
+    ? templates.find(item => item.name === user.user?.templates[0])
+    : null;
 
   return (
     <div className="Profile__container">
       <button 
         onClick={logOut}
-        className="btn--logout"
-      >
+        className="btn--logout">
         Log out
       </button>
       <p className="Profile__header">My profile</p>
@@ -67,10 +77,10 @@ const Profile = () => {
       {user.user?.team_name === null 
         && <p className="Profile__noteam">You are not assigned to a team. Please join a team or create a new team.</p>
       }
-      <JoinTeam teams={teams} />
+     {(user.user?.team_name == null && teams.length > 0) && <JoinTeam teams={teams} />}
       {(user.user?.team_name == null) && <CreateTeam />}
 
-      {(templates?.length > 0 && user.user?.templates?.length === 0) && 
+      {(templates?.length > 0 && user.user?.templates?.length === 0 && user.user?.team_name !== null) && 
       <div className="Profile__TemplateCardsContainer">
         <p className="Profile__TemplateCardsContainer--header">
           Please choose a retro template for your team

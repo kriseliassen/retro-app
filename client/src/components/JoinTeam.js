@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 
 const JoinTeam = ({ teams }) => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const { addUser } = bindActionCreators(actionCreators, dispatch);
@@ -12,7 +13,7 @@ const JoinTeam = ({ teams }) => {
 
   const onSubmit = async data => {
     const token = localStorage.getItem('retroToken');
-    const response = await fetch(`/db/users/${user.user.id}`, {
+    const response = await fetch(`${SERVER_URL}/db/users/${user.user.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

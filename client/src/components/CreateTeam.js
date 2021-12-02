@@ -5,24 +5,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 const CreateTeam = () => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const { addUser } = bindActionCreators(actionCreators, dispatch);
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async data => {
-    const token = localStorage.getItem('retroToken');
-    const response = await fetch(`/db/teams`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization": `Bearer ${token}`
-      },
-      body: JSON.stringify({...data, userId: user.user.id })
-    })
-    
-    const userData = await response.json()
-    addUser(userData);
+    try {
+      const token = localStorage.getItem('retroToken');
+      const response = await fetch(`${SERVER_URL}/db/teams`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({...data, userId: user.user.id })
+      })
+      
+      const userData = await response.json()
+      addUser(userData);
+    } catch(err) {
+      console.log(err)
+    }
   };
   return (
     <div className="CreateTeam__container">

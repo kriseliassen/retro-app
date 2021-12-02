@@ -12,8 +12,9 @@ const TemplateCard = ({template}) => {
   const dispatch = useDispatch();
 
   const handleClickChoose = async () => {
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
     const token = localStorage.getItem('retroToken');
-    await fetch('/db/teamstemplates', {
+    await fetch(`${SERVER_URL}/db/teamstemplates`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

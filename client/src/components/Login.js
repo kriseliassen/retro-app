@@ -8,6 +8,7 @@ import Error from './Error';
 import '../styles/Login.css'
 
 const Login = () => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const [error, setError] = useState('')
   const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -17,21 +18,25 @@ const Login = () => {
   const { addUser } = bindActionCreators(actionCreators, dispatch);
 
   const onSubmit = async data => {
-    const response = await fetch('/db/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    const userData = await response.json()
-    if(!userData.token) {
-      setError(userData.message);
-      return;
+    try {
+      const response = await fetch(`${SERVER_URL}/db/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const userData = await response.json()
+      if(!userData.token) {
+        setError(userData.message);
+        return;
+      }
+      localStorage.setItem('retroToken', JSON.stringify(userData.token));
+      addUser(userData);
+      navigate('/');
+    } catch(err) {
+      console.log(err)
     }
-    localStorage.setItem('retroToken', JSON.stringify(userData.token));
-    addUser(userData);
-    navigate('/');
   };
 
   return (

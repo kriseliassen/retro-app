@@ -16,8 +16,9 @@ const Form = () => {
   const onSubmit = data => console.log(data);
 
 const getQuestions = async () => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const token = localStorage.getItem('retroToken');
-  const resp = await fetch('/db/form', {
+  const resp = await fetch(`${SERVER_URL}/db/form`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -36,7 +37,6 @@ useEffect(() => {
   }
 
 }, [])
-
 
   return (
     <div>

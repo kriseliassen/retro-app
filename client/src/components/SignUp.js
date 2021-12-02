@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 const SignUp = () => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const dispatch = useDispatch();
@@ -14,17 +16,21 @@ const SignUp = () => {
   const { addUser } = bindActionCreators(actionCreators, dispatch);
 
   const onSubmit = async data => {
-    const response = await fetch('/db/users/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    const userData = await response.json()
-    localStorage.setItem('retroToken', JSON.stringify(userData.token));
-    addUser({ name: userData.user.name, id: userData.user.id });
-    navigate('/');
+    try {
+      const response = await fetch(`${SERVER_URL}/db/users/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const userData = await response.json()
+      localStorage.setItem('retroToken', JSON.stringify(userData.token));
+      addUser({ name: userData.user.name, id: userData.user.id, templates: [] });
+      navigate('/');
+    } catch(err) {
+      console.log(err)
+    }
   };
 
   return (
