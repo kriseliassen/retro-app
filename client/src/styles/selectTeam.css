@@ -15,12 +15,11 @@
   gap: 0.75em;
 }
 
-.CreateTeam__form--input {
+.CreateTeam__form--input,
+.JoinTeam__form--input {
   border: 1px solid darkgrey;
 }
-.JoinTeam__form--input {
-  border: none;
-}
+
 .JoinTeam__form--input,
 .CreateTeam__form--input,
 .btn-form {
