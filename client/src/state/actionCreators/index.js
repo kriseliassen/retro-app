@@ -15,6 +15,14 @@ export const removeUser = () => {
     })}
 }
 
+export const updateUser = (obj) => {
+  return dispatch => {
+    dispatch({
+      type: 'UPDATE_USER', 
+      payload: obj
+    })}
+}
+
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 export const fetchUser = token => async dispatch => {
