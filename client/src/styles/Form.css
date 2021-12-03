@@ -5,6 +5,7 @@
   padding: 1em;
   gap: 0.75em;
   max-width: 600px;
+  margin: 0 auto;
 }
 
 .Link--go-back {

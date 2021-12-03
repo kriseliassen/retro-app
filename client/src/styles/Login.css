@@ -32,6 +32,7 @@
 .Signup__form,
 .Login__form {
   gap: 1.5em;
+  max-width: 600px;
 }
 
 .Signup__form__header,
