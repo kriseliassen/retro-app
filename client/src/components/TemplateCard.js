@@ -18,7 +18,8 @@ const TemplateCard = ({template}) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({templateName: name, teamId: user.user.team_id})
     })

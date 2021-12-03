@@ -20,7 +20,8 @@ const Form = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({template_name: user.user.templates[0]})
       })

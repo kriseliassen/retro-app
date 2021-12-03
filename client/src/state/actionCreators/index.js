@@ -29,7 +29,10 @@ export const fetchUser = token => async dispatch => {
   try {
     let resp = await fetch(`${SERVER_URL}/db/user`, {
       method: "GET",
-      headers: { "Authorization": `Bearer ${token}` },
+      headers: { 
+        "Authorization": `Bearer ${token}`,
+        'Access-Control-Allow-Origin': '*'
+       },
     })
     const userData = await resp.json();
     if (userData.error) {

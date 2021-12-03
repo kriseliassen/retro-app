@@ -18,7 +18,8 @@ const CreateTeam = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          "Authorization": `Bearer ${token}`
+          "Authorization": `Bearer ${token}`,
+          'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({...data, userId: user.user.id })
       })

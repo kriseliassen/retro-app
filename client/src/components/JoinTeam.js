@@ -17,7 +17,8 @@ const JoinTeam = ({ teams }) => {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify(data)
     })

@@ -22,7 +22,11 @@ const Profile = () => {
     try {
       const response = await fetch(`${SERVER_URL}/db/teams`, {
         method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }});
+        headers: { 
+          "Authorization": `Bearer ${token}`,
+          'Access-Control-Allow-Origin': '*'
+        },
+      });
       const teamData = await response.json();
       setTeams(teamData)
     } catch(err) {
@@ -34,17 +38,16 @@ const Profile = () => {
     try  {
       const response = await fetch(`${SERVER_URL}/db/templates`, {
         method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }});
+        headers: { 
+          "Authorization": `Bearer ${token}`,
+          'Access-Control-Allow-Origin': '*'
+         },
+      });
       const templatesData = await response.json();
       setTemplates(templatesData)
     } catch (err) {
       console.log(err)
     }
-  }
-
-  const logOut = () => {
-    localStorage.removeItem('retroToken')
-    navigate('/login')
   }
 
   useEffect(() => {
