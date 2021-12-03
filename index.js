@@ -59,7 +59,9 @@ app.post('/db/teams', verifyUser, async (req, res) => {
   const team = await getTeamByName(teamName.toLowerCase());
   await assignTeamToUser(userId, teamName)
   const updatedUser = await getUserById(userId)
-  delete updatedUser.password
+  updatedUser.team_name = teamName;
+  updatedUser.templates = [];
+  delete updatedUser.password;
   res.json({user: updatedUser, token})
 })
 

@@ -88,7 +88,9 @@ const Profile = () => {
      )}
       {(user.user?.team_name == null) && <CreateTeam />}
 
-      {(templates?.length > 0 && user.user?.templates?.length === 0 && user.user?.team_name !== null) && 
+      {(user.user?.templates?.length === 0 
+        && user.user?.team_name) 
+      && 
       <div className="Profile__TemplateCardsContainer">
         <p className="Profile__TemplateCardsContainer--header">
           There are no retro forms associated with your team. Please choose a form template for your team.

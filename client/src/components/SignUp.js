@@ -26,7 +26,7 @@ const SignUp = () => {
       })
       const userData = await response.json()
       localStorage.setItem('retroToken', JSON.stringify(userData.token));
-      addUser({ name: userData.user.name, id: userData.user.id, templates: [] });
+      addUser({ name: userData.user.name, id: userData.user.id, templates: [], team_name: null });
       navigate('/');
     } catch(err) {
       console.log(err)
