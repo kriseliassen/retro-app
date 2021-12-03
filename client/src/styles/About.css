@@ -1,0 +1,44 @@
+.About__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  gap: 1.5em;
+  max-width: 600px;
+}
+
+.About__header {
+  position: relative;
+}
+
+.About__header::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: .4em;
+  width: 120%;
+  top: 0.8em;
+  left: -9%;
+  z-index: -3;
+  background: var(--color-pink);
+  opacity: 0.4;
+}
+
+.About__text {
+  width: 90%;
+  line-height: 1.5;
+}
+
+
+.About__list {
+  list-style: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.About__created-by {
+  font-size: 1.1rem;
+  font-weight: 600;
+}

@@ -5,16 +5,18 @@
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  gap: 0.75em;
+  gap: 1.2em;
 }
+
 .TemplateCard__name {
   font-size: 1.25rem;
   font-weight: 600;
 }
+
 .TemplateCard__description {
   font-size: 1.1rem;
 }
 
-.rightaligned {
+.btn--rightaligned {
   align-self: flex-end
 }
