@@ -65,11 +65,6 @@ const Profile = () => {
 
   return (
     <div className="Profile__container">
-      {/* <button 
-        onClick={logOut}
-        className="btn--logout">
-        Log out
-      </button> */}
       <p className="Profile__header">My profile</p>
       {user.user 
         && <h1 className="Profile__greeting">Hello, {user.user?.first_name}</h1>
@@ -80,11 +75,12 @@ const Profile = () => {
       {user.user?.team_name === null 
         && <p className="Profile__noteam">You are not assigned to a team. Please join a team or create a new team.</p>
       }
-     {(user.user?.team_name == null && teams.length > 0) && (
-     <>
-     <JoinTeam teams={teams} />
-     <p className="Profile__text--or">or</p>
-     </>
+     {(user.user?.team_name == null && teams.length > 0) 
+     && (
+      <>
+      <JoinTeam teams={teams} />
+      <p className="Profile__text--or">or</p>
+      </>
      )}
       {(user.user?.team_name == null) && <CreateTeam />}
 

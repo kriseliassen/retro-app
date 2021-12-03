@@ -20,10 +20,10 @@ const secret = process.env.JWT_SECRET;
 
 app.use(cors());
 
-// app.get('/db/teams', verifyUser, async (req, res) => {
-//   const teamsData = await teams()
-//   res.json(teamsData)
-// });
+app.get('/db/teams', verifyUser, async (req, res) => {
+  const teamsData = await teams()
+  res.json(teamsData)
+});
 
 app.get('/db/templates', verifyUser, async (req, res) => {
   const templatesData = await getTemplates();
