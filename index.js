@@ -20,13 +20,10 @@ const secret = process.env.JWT_SECRET;
 
 app.use(cors());
 
-// Have Node serve the files for our built React app
-// app.use(express.static(path.resolve(__dirname, './client/build')));
-
-app.get('/db/teams', verifyUser, async (req, res) => {
-  const teamsData = await teams()
-  res.json(teamsData)
-});
+// app.get('/db/teams', verifyUser, async (req, res) => {
+//   const teamsData = await teams()
+//   res.json(teamsData)
+// });
 
 app.get('/db/templates', verifyUser, async (req, res) => {
   const templatesData = await getTemplates();
@@ -66,10 +63,10 @@ app.post('/db/teams', verifyUser, async (req, res) => {
 })
 
 // ONLY FOR CHECKING THE DB CONTENT
-app.get('/db/users', async (req, res) => {
-  const usersData = await users()
-  res.json(usersData)
-})
+// app.get('/db/users', verifyUser, async (req, res) => {
+//   const usersData = await users()
+//   res.json(usersData)
+// })
 
 app.patch('/db/users/:id', verifyUser,  async (req, res) => {
   try {
@@ -150,11 +147,6 @@ app.post('/db/users/login', async (req, res) => {
     res.status(400).json({ message: 'The details provided are not correct.' })
   }
 })
-
-// All other GET requests not handled before will return our React app
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
-// });
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
