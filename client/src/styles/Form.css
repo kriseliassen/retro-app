@@ -1,0 +1,82 @@
+.Form__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  gap: 0.75em;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.Link--go-back {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+}
+
+.Form__header {
+  text-align: center;
+}
+
+.Form__header--intro {
+  font-size: 1.75rem;
+  font-weight: 400;
+}
+
+.Form__header--intro {
+  position: relative;
+}
+
+.Form__header--intro::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: .4em;
+  width: 120%;
+  top: 0.8em;
+  left: -9%;
+  z-index: -3;
+  background: var(--color-pink);
+  opacity: 0.4;
+}
+
+.Form__form,
+.Form__form--question {
+  display: flex;
+  flex-direction: column;
+}
+
+.Form__form {
+  width: 100%;
+  align-items: center;
+  gap: 1em;
+}
+
+.Form__form--question {
+  width: 90%;
+  gap: 0.5em;
+}
+
+.Form__form--label {
+  font-size: 1.1rem;
+}
+
+.Form__form--input {
+  font-family: var(--ff-sans-serif);
+  font-size: 1.25rem;
+  padding: 0.4em 0.57em;
+  border-radius: 8px;
+  border: 1px solid darkgrey;
+}
+
+.Form__form--textarea {
+  min-height: 100px;
+}
+
+.Form__form--input[type=number] {
+  width: 20%;
+}
+
+.Form__btn--form {
+  font-size: 1.25rem;
+}

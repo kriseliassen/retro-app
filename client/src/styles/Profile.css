@@ -1,24 +1,84 @@
 .Profile__container {
-  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3em 1em 1em;
+    gap: 0.75em;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.Profile__header {
+    font-size: 1.25rem;
+    position: relative;
+    display: flex;
+}
+
+.Profile__header::after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: .4em;
+    width: 120%;
+    top: 0.8em;
+    left: -9%;
+    z-index: -3;
+    background: var(--color-pink);
+    opacity: 0.4;
+}
+.Profile__greeting {
+    text-transform: capitalize;   
+}
+
+.Profile__noteam {
+    text-align: center;
+    font-size: 1.2rem;
+    max-width: 90%;
+}
+
+.Profile__team {
+    text-align: center;
+    font-size: 1.5rem;
+    max-width: 90%;
+    text-transform: capitalize;
+}
+
+.Profile__TemplateCardsContainer--header {
+    text-align: center;
+    font-size: 1.3rem;
+    max-width: 95%;
+}
+
+.Profile__text--chosen-form {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .Profile__TemplateCardsContainer {
     display: flex;
     flex-direction: column;
     gap: 1em;
-    padding: 0.75em
+    padding: 0.75em;
+    width: 100%;
 }
 
-.btn--form , .btn--logout{
+.btn--form, 
+.btn--logout{
     background: var(--color-pink);
     border: none;
     color: white;
     font-size: 1rem;
-    padding: 0.5em 1em;
+    padding: 0.8em 1.5em;
     border-radius: 100px;
 }
 .btn--logout{
     background: transparent;
     border: 1px solid var(--color-pink);
     color: var(--color-pink);
+    align-self: flex-start;
 }
+
+.btn--bigger {
+    font-size: 1.2rem;
+  }

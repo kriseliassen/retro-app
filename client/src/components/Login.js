@@ -44,29 +44,29 @@ const Login = () => {
       <h1 className="logo">
         Retro
       </h1>
-      <div className="Form__container">
-        <h2 className="Form__header">
+      <div className="Login__form__container">
+        <h2 className="Login__form__header">
           Log in
         </h2>
         <form 
-          onSubmit={handleSubmit(onSubmit)} className="Form">
+          onSubmit={handleSubmit(onSubmit)} className="Login__form">
           <input 
           type="text" 
           placeholder="Email" 
-          {...register("email", { required: true, pattern: /^\S+@\S+$/i })}  className="Form__input"/>
+          {...register("email", { required: true, pattern: /^\S+@\S+$/i })}  className="Login__form__input"/>
           {errors.email?.type === 'required' && "Email is required"}
           <input 
             type="password" 
             placeholder="Password" 
-            {...register("password", { required: true, min: 6 })}  className="Form__input"/>
+            {...register("password", { required: true, min: 6 })}  className="Login__form__input"/>
             {errors.password?.type === 'required' && "Password is required"}
           <input 
             type="submit"
-            className="Form__button"/>
+            className="Login__form__button"/>
         </form>
         <Link 
           to="/signup" 
-          className="Form__link">
+          className="Login__form__link">
           No account? Sign up!
         </Link>
       </div>

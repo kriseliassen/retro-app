@@ -26,7 +26,7 @@ const SignUp = () => {
       })
       const userData = await response.json()
       localStorage.setItem('retroToken', JSON.stringify(userData.token));
-      addUser({ name: userData.user.name, id: userData.user.id, templates: [] });
+      addUser({ name: userData.user.name, id: userData.user.id, templates: [], team_name: null });
       navigate('/');
     } catch(err) {
       console.log(err)
@@ -38,46 +38,46 @@ const SignUp = () => {
       <h1 className="logo">
         Retro
       </h1>
-      <div className="Form__container">
-        <h2 className="Form__header">
+      <div className="Signup__form__container">
+        <h2 className="Signup__form__header">
           Sign Up
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="Form">
+        <form onSubmit={handleSubmit(onSubmit)} className="Signup__form">
           <input 
             type="text" 
             placeholder="First name" 
             {...register("firstName", { required: true, min: 3 })}
             autoComplete="off"
-            className="Form__input"/>
+            className="Signup__form__input"/>
             {errors.firstName?.type === 'required' && "First name is required"}
           <input 
             type="text" 
             placeholder="Last name" 
             {...register("lastName", { required: true, min: 3 })}
             autoComplete="off"
-            className="Form__input"/>
+            className="Signup__form__input"/>
             {errors.lastName?.type === 'required' && "Last name is required"}
           <input 
             type="text" 
             placeholder="Email" 
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}  
             autoComplete="off"
-            className="Form__input"/>
+            className="Signup__form__input"/>
             {errors.email?.type === 'required' && "Email is required"}
           <input 
             type="password" 
             placeholder="Password" 
             {...register("password", { required: true, min: 6 })}
             autoComplete="off"
-            className="Form__input"/>
+            className="Signup__form__input"/>
             {errors.firstName?.type === 'required' && "Password is required"}
           <input 
           type="submit" 
-          className="Form__button"/>
+          className="Signup__form__button"/>
         </form>
         <Link 
           to="/login"
-          className="Form__link">
+          className="Signup__form__link">
           Already have an account? Log in!
         </Link>
       </div>

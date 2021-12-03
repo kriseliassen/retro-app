@@ -9,3 +9,4 @@ LEFT JOIN responses
 ON responses.questions_id = questions.id
 LEFT JOIN users
 ON users.id = entries.user_id
+
