@@ -1,6 +1,6 @@
 const db =  require('./db.js');
 
-module.exports ={
+module.exports = {
     teams: async () => {
         const { rows } = await db.query(db.GET_ALL_TEAMS);
         return rows;
@@ -57,5 +57,17 @@ module.exports ={
         const templateId = await db.query(db.GET_TEMPLATEID_BY_NAME, [templateName]);
         const { rows } = await db.query(db.GET_QUESTIONS_BY_TEMPLATEID, [templateId.rows[0].id]);
         return rows;
+    },
+    addEntry: async (userId, templateName) => {
+        await db.query(db.ADD_ENTRY, [templateName, userId]);
+        const { rows } = await db.query(db.GET_LATEST_ENTRY_FOR_USER_TEMPLATE_MATCH, [templateName, userId]);
+        return rows[0];
+    },
+    addResponses: async (data, entryId) => {
+        const values = Object.values(data);
+        Object.keys(data).map(async (item, index) => {
+            await db.query(db.ADD_RESPONSE, [entryId, item, values[index]]);
+        })
+        return;
     },
 }

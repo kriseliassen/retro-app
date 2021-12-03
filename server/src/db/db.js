@@ -66,4 +66,33 @@ module.exports = {
     SELECT * FROM questions
     WHERE templates_id = $1
   `,
+  ADD_ENTRY:`
+    INSERT INTO entries
+    (templates_id, user_id, date)
+    VALUES
+    (
+    (SELECT id from templates WHERE name = $1),
+    (SELECT id from users WHERE id = $2),
+    now()
+    )
+  `,
+  GET_LATEST_ENTRY_FOR_USER_TEMPLATE_MATCH: `
+    SELECT * FROM entries 
+    WHERE
+    templates_id = (SELECT id FROM templates WHERE name = $1) 
+    AND
+    user_id = $2 
+    AND
+    id=(SELECT max(id) FROM entries)
+  `,
+  ADD_RESPONSE: `
+    INSERT INTO responses
+    (entries_id, questions_id, text)
+    VALUES
+    (
+    (SELECT id from entries WHERE id = $1),
+    (SELECT id from questions WHERE id = $2),
+    $3
+    )
+  `,
 };

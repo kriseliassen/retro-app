@@ -4,14 +4,14 @@ CREATE TABLE IF NOT EXISTS entries (
   FOREIGN KEY (templates_id) REFERENCES templates (id),
   user_id int,
   FOREIGN KEY (user_id) REFERENCES users (id),
-  date VARCHAR
+  date DATE
 );
 
 INSERT INTO entries
 (templates_id, user_id, date)
 VALUES
 (
-(SELECT id from templates WHERE id = 1),
+(SELECT id from templates WHERE name = 'Kalm'),
 (SELECT id from users WHERE id = 4),
-2021-12-12
+now()
 )

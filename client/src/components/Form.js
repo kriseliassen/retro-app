@@ -10,7 +10,25 @@ const Form = () => {
   const [questions, setQuestions] = useState([])
   const user = useSelector(state => state.user);
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+
+  const onSubmit = async data => {
+    console.log(data)
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+      const token = localStorage.getItem('retroToken');
+      const resp = await fetch(`${SERVER_URL}/db/entries`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${token}`,
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+          data, 
+          user_id: user.user.id,
+          template_name: user.user.templates[0]
+        })
+      })
+  };
 
   const getQuestions = async () => {
     try {

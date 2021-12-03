@@ -4,7 +4,7 @@ const {
   teams, users, getUserByEmail, getUserById, getTeamById, addUser, 
   addTeam, deleteUserByEmail, getTeamByName, assignTeamToUser, 
   getTemplateNamesByTeamId, getTemplates, assignTemplateToTeam, 
-  getQuestionsByTemplateName
+  getQuestionsByTemplateName, addEntry, addResponses
 } = require('./src/db/functions.js')
 const bcrypt = require('bcrypt')
 const app = express()
@@ -34,6 +34,20 @@ app.post('/db/form', verifyUser, async (req, res) => {
   const { template_name } = req.body;
   const questions = await getQuestionsByTemplateName(template_name);
   res.json(questions);
+})
+
+app.post('/db/entries', verifyUser, async (req, res) => {
+  const { token } = res.locals;
+  // GET USER ID, TEMPLATE NAME, RESPONSES FROM REQ.BODY
+  const {template_name, user_id, data} = req.body;
+  // CREATE ENTRY INTO DB ENTRIES
+  // GET ENTRY ID FROM DB
+  const entry = await addEntry(user_id, template_name);
+  const entryId = entry.id;
+  // CREATE ENTRY INTO DB RESPONSES WITH ANSWERS
+  await addResponses(data, entryId)
+  // RES 201 NOTHING
+  res.status(201).end()
 })
 
 app.post('/db/teamstemplates', verifyUser, async (req, res) => {
