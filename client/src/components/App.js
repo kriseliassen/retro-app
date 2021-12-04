@@ -6,6 +6,7 @@ import SignUp from './SignUp.js';
 import Login from './Login.js';
 import Form from './Form.js';
 import About from './About.js';
+import CreateTemplate from './CreateTemplate.js';
 import '../styles/App.css'
 import '../styles/Menu.css'
 
@@ -73,6 +74,7 @@ const App = () => {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/form' element={<Form />} />
         <Route path='/about' element={<About />} />
+        <Route path='/createtemplate' element={<CreateTemplate />} />
       </Routes>
     </div>
   );
