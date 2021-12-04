@@ -28,12 +28,16 @@ const CreateTemplate = () => {
         setTemplate(updatedTemplate)
         console.log(template)
     }
-    // const onSubmitNumber = async data => {
-    //     console.log('NUMBER')
-    // }
+    const deleteQuestion = async (e,item) => {
+      e.preventDefault()
+      const questions = template.questions.filter(i=>i.question !== item.question)
+      const newTemplate = {...template}
+      newTemplate.questions= questions
+      setTemplate(newTemplate)
+    }
     const onSubmitTemplate = async data => {
         
-        console.log('Template')
+        console.log('Template: ', template)
     }
 
     useEffect(()=>{},[template])
@@ -45,13 +49,15 @@ const CreateTemplate = () => {
         Back to profile
       </Link>
       <h1 className="Form__header">
-        {template?.templateName !== '' ? <span className="Form__header--intro">New Template:</span> :""}
+         <span className="Form__header--intro">Create a new template</span>
       </h1>
         <form onSubmit={handleSubmit1(onSubmitTemplateName)}>
             <input type="text" placeholder="Template name" {...register1("templateName", {required: true})} />
             <input type="submit" />
         </form>
         <br />
+        { template.templateName && 
+        <div>
         <h3>Add a new question</h3>
         <form onSubmit={handleSubmit2(onSubmitQuestion)}>
             <input type="text" placeholder="Question Text" {...register2("question", {required: true})} />
@@ -62,10 +68,12 @@ const CreateTemplate = () => {
             <input {...register2("type", { required: true })} type="radio" value="number" />
 
             <input type="submit" />
-        </form>
+        </form> 
+        </div>}
         <h1 className="Form__header">
-        <span className="Form__header--intro">Your new template:</span>
+        {template.templateName && <span className="Form__header--intro">{`Template draft: ${template.templateName}`}</span>}
       </h1>
+        {(template.templateName && template.questions.length === 0) && <span className="">This template has no questions yet.</span>}
       <form className="Form__form" onSubmit={handleSubmit3(onSubmitTemplate)}>
         {template.questions?.map(item => (
           <div key={item.id}className="Form__form--question">
@@ -82,9 +90,10 @@ const CreateTemplate = () => {
             type={item.type} 
             {...register3(`${item.id}`)} 
             className="Form__form--input"/>}
+            <button onClick={e=>deleteQuestion(e,item)}>Delete question</button>
           </div>
          ))}
-        <input type="submit" className="btn--form Form__btn--form" value="Submit new template"/>
+        {(template.questions.length > 0 && template.templateName) && <input type="submit" className="btn--form Form__btn--form" value="Submit new template"/>}
       </form>
     </div>
     )
