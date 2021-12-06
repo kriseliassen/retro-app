@@ -59,7 +59,7 @@ const Reports = () => {
             })
             filteredData.push({entry: entry, questions:intermediate})
         })
-        
+        console.log('filtering data ')
     return (filteredData)
     }
     useEffect(() => {
@@ -71,8 +71,15 @@ const Reports = () => {
             dispatch(fetchUser(token))
         } 
         getEntries(token);
-        setOutput(allIndividualTeamEntries())
+        // setOutput(allIndividualTeamEntries())
     }, [user]);
+
+    useEffect(() => {
+        if(output.length === 0){
+            setOutput(allIndividualTeamEntries())
+        }
+    },[output]);
+
     
     
     console.log('FUNCTION OUTPUT',allIndividualTeamEntries());
