@@ -11,6 +11,8 @@ const Reports = () => {
     const dispatch = useDispatch();
     const [entries, setEntries] = useState([])
     const [output, setOutput] = useState([])
+    const [filters, setFilters] = useState({team: true})
+
 
     const getEntries = async (token) =>{
         const resp = await fetch(`${SERVER_URL}/db/reports`, {
@@ -81,6 +83,13 @@ const Reports = () => {
         }
     },[output]);
 
+    const toggleYours = () => {
+        if(filters.team === true){
+            
+        }
+        console.log('toggle')
+    }
+
     
     
     console.log('FUNCTION OUTPUT',allIndividualTeamEntries());
@@ -89,6 +98,7 @@ const Reports = () => {
         <div>
 
             <p> REPORTS: Number of entries: {output?.length}</p>
+            <button onClick={toggleYours}>Toggle Team/Yours</button>
             {output?.map(item=>(
                 <div key={item.entry}>
                     <h2>User: {item.firstName} {item.lastName}</h2>

@@ -111,5 +111,6 @@ JOIN users
   ON users.id = entries.user_id
 
   WHERE users.team_id = $1
+  ORDER BY date DESC
   `,
 };
