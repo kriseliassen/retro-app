@@ -98,7 +98,7 @@ module.exports = {
   GET_ALL_ENTRIES: `
   SELECT entries_id, date, user_id, users.team_id, 
   entries.templates_id, name AS template_name, 
-  questions_id, question, text AS response, type
+  questions_id, question, text AS response, type, responses.id as responseId
   from entries 
   JOIN templates
   ON templates.id = entries.templates_id  

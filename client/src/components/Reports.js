@@ -89,14 +89,14 @@ const Reports = () => {
 
             <p> REPORTS: Number of entries: {output?.length}</p>
             {output?.map(item=>(
-                <div>
+                <div key={item.entry}>
                     <p>Entry Id: {item.entry}</p>
                 {
                 item.questions?.map(q=>(
-                    <>
+                    <div key={q.responseid}>
                     <p>Question: {q.question}</p>
                     <p>Response: {q.response}</p>
-                    </>))
+                    </div>))
                 }
                 </div>    
                 ))
