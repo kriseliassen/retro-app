@@ -6,7 +6,7 @@ import SignUp from './SignUp.js';
 import Login from './Login.js';
 import Form from './Form.js';
 import About from './About.js';
-import Report from './Report.js';
+import Reports from './Reports.js';
 import CreateTemplate from './CreateTemplate.js';
 import '../styles/App.css'
 import '../styles/Menu.css'
@@ -60,10 +60,10 @@ const App = () => {
           onClick={() => {
             closeMenu()
           } }
-          id="report"
+          id="reports"
           className="menu-item"
-          to="/report">
-            Report
+          to="/reports">
+            Reports
           </Link>
           <Link
           onClick={() => {
@@ -85,7 +85,7 @@ const App = () => {
         <Route path='/form' element={<Form />} />
         <Route path='/about' element={<About />} />
         <Route path='/newtemplate' element={<CreateTemplate />} />
-        <Route path='/report' element={<Report />} />
+        <Route path='/reports' element={<Reports />} />
       </Routes>
     </div>
   );

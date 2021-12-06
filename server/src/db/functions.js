@@ -70,4 +70,8 @@ module.exports = {
         })
         return;
     },
+    getAllEntries: async (teamId) => {
+        const { rows } = await db.query(db.GET_ALL_ENTRIES, [teamId]);
+        return rows;
+    }
 }

@@ -4,7 +4,7 @@ const {
   teams, users, getUserByEmail, getUserById, getTeamById, addUser, 
   addTeam, deleteUserByEmail, getTeamByName, assignTeamToUser, 
   getTemplateNamesByTeamId, getTemplates, assignTemplateToTeam, 
-  getQuestionsByTemplateName, addEntry, addResponses
+  getQuestionsByTemplateName, addEntry, addResponses, getAllEntries
 } = require('./src/db/functions.js')
 const bcrypt = require('bcrypt')
 const app = express()
@@ -160,6 +160,14 @@ app.post('/db/users/login', async (req, res) => {
   } else {
     res.status(400).json({ message: 'The details provided are not correct.' })
   }
+});
+
+app.post('/db/reports', verifyUser, async (req, res) => {
+  const { token } = res.locals;
+  const { team_id } = req.body; 
+  const reports = await getAllEntries(team_id);
+  
+  res.json({reports, token})
 })
 
 app.listen(port, () => {

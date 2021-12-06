@@ -29,7 +29,7 @@ const Form = () => {
           template_name: user.user.templates[0]
         })
       })
-      navigate('/report');
+      navigate('/reports');
   };
 
   const getQuestions = async () => {

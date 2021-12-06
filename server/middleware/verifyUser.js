@@ -9,7 +9,6 @@ const verifyUser = (req, res, next) => {
     res.status(400).json({error: 'No token'});
     return
   }
-  console.log('HEADERS',req.headers.authorization)
   // const token = (req.headers.authorization.replace('Bearer ', '').replaceAll('"', ''));
   const token = req.headers.authorization.slice(8,req.headers.authorization.length-1)
   const decodedToken = JWT.verify(token, secret)
