@@ -1,15 +1,16 @@
 import React , {useEffect, useState} from 'react'
-import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import {BiArrowBack} from 'react-icons/bi'
 import '../styles/Form.css'
+import { useNavigate, Link } from 'react-router-dom';
 
 
 const Form = () => {
   const [questions, setQuestions] = useState([])
   const user = useSelector(state => state.user);
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate();
 
   const onSubmit = async data => {
     console.log(data)
@@ -28,6 +29,7 @@ const Form = () => {
           template_name: user.user.templates[0]
         })
       })
+      navigate('/report');
   };
 
   const getQuestions = async () => {
