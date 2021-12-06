@@ -26,6 +26,7 @@ const Reports = () => {
           })
           const rawEntries = await resp.json()
           console.log(rawEntries)
+          console.log('ORIGINAL DATA ', rawEntries.reports)
           setEntries(rawEntries.reports)
     }
     const allIndividualTeamEntries = () => {
@@ -57,9 +58,9 @@ const Reports = () => {
             questionsSets[i].forEach(q=> {
                 intermediate.push(data.find(item=> item.entries_id === entry && item.questions_id === q ))
             })
-            filteredData.push({entry: entry, questions:intermediate})
+            console.log('intermediate', i, intermediate )
+            filteredData.push({entry: entry, questions: intermediate, firstName: intermediate[0].first_name, lastName: intermediate[0].last_name})
         })
-        console.log('filtering data ')
     return (filteredData)
     }
     useEffect(() => {
@@ -90,7 +91,7 @@ const Reports = () => {
             <p> REPORTS: Number of entries: {output?.length}</p>
             {output?.map(item=>(
                 <div key={item.entry}>
-                    <p>Entry Id: {item.entry}</p>
+                    <h2>User: {item.firstName} {item.lastName}</h2>
                 {
                 item.questions?.map(q=>(
                     <div key={q.responseid}>
