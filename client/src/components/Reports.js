@@ -83,9 +83,14 @@ const Reports = () => {
             <p> REPORTS: Number of entries: {output?.length}</p>
             {output?.map(item=>(
                 <div>
-                    <p>Entry Id: {item.questions.entries_id}</p>
-                    <p>Question: {item.questions.question}</p>
-                    <p>Response: {item.questions.response}</p>
+                    <p>Entry Id: {item.entry}</p>
+                {
+                item.questions?.map(q=>(
+                    <>
+                    <p>Question: {q.question}</p>
+                    <p>Response: {q.response}</p>
+                    </>))
+                }
                 </div>    
                 ))
             }
