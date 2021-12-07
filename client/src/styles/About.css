@@ -5,6 +5,7 @@
   padding: 1em;
   gap: 1.5em;
   max-width: 600px;
+  margin: 0 auto;
 }
 
 .About__header {
