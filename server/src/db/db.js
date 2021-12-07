@@ -51,7 +51,12 @@ module.exports = {
     SELECT name FROM teamstemplatesview
     WHERE id = $1
   `,
-  GET_TEMPLATES: 'SELECT * FROM templates',
+  GET_TEMPLATES: `
+  SELECT * FROM templates 
+  WHERE team_id is NULL
+  OR team_id = $1
+  ORDER BY name ASC
+  `,
   ASSIGN_TEMPLATE_TO_TEAM: `
     INSERT INTO teamstemplates (team_id, templates_id)
     VALUES (

@@ -4,8 +4,10 @@ import { BiArrowBack } from 'react-icons/bi'
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from '../state/actionCreators';
+import { addUser } from '../state/actionCreators';
 
 const CreateTemplate = () => {
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const CreateTemplate = () => {
     updatedTemplate.templateName = data.templateName
     updatedTemplate.templateDescription = data.templateDescription
     updatedTemplate.teamId = user.user?.team_id;
+    updatedTemplate.teamName = user.user?.team_name;
     setTemplate(updatedTemplate)
   }
 
@@ -35,8 +38,24 @@ const CreateTemplate = () => {
     setTemplate(newTemplate)
   }
   const onSubmitTemplate = async data => {
-
-    console.log('Template: ', template)
+    try {
+      const token = localStorage.getItem('retroToken');
+      await fetch(`${SERVER_URL}/db/templates`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": `Bearer ${token}`,
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(template)
+      })
+      const updatedUser = {...user };
+      updatedUser.user.templates = [template.name];
+      dispatch(addUser(updatedUser));
+      navigate('/')
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   useEffect(() => {

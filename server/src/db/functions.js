@@ -45,8 +45,9 @@ module.exports = {
         const { rows } = await db.query(db.GET_TEMPLATENAMES_BY_TEAMID, [id]);
         return rows;
     },
-    getTemplates: async () => {
-        const { rows } = await db.query(db.GET_TEMPLATES);
+    getTemplates: async teamId => {
+        const id = isNaN(teamId) ? 0 : teamId
+        const { rows } = await db.query(db.GET_TEMPLATES, [id]);
         return rows;
     },
     assignTemplateToTeam: async (teamId, templateName) => {

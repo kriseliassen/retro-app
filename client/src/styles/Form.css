@@ -82,3 +82,7 @@
 .Form__btn--form {
   font-size: 1.25rem;
 }
+
+.Form__btn--form:hover {
+  cursor: pointer;
+}

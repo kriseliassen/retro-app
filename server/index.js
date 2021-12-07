@@ -4,7 +4,7 @@ const {
   teams, users, getUserByEmail, getUserById, getTeamById, addUser, 
   addTeam, deleteUserByEmail, getTeamByName, assignTeamToUser, 
   getTemplateNamesByTeamId, getTemplates, assignTemplateToTeam, 
-  getQuestionsByTemplateName, addEntry, addResponses, getAllEntries, addTemplate
+  getQuestionsByTemplateName, addEntry, addResponses, getAllEntries, addTemplate, addQuestions
 } = require('./src/db/functions.js')
 const bcrypt = require('bcrypt')
 const app = express()
@@ -26,14 +26,17 @@ app.get('/db/teams', verifyUser, async (req, res) => {
 });
 
 app.get('/db/templates', verifyUser, async (req, res) => {
-  const templatesData = await getTemplates();
+  const { teamid } = req.headers;
+  const templatesData = await getTemplates(teamid === undefined ? undefined : Number(teamid));
   res.json(templatesData);
 });
 
 app.post('/db/templates', verifyUser, async (req, res) => {
-  const { templateName, templateDescription, questions } = req.body;
-  // await addTemplate();
-  res.json(questions);
+  const { templateName, templateDescription, questions, teamName, teamId } = req.body;
+  await addTemplate(templateName, templateDescription, teamName);
+  await addQuestions(questions, teamId);
+  await assignTemplateToTeam(teamId, templateName);
+  res.status(201).json(req.body);
 });
 
 app.post('/db/form', verifyUser, async (req, res) => {
@@ -47,8 +50,8 @@ app.post('/db/entries', verifyUser, async (req, res) => {
   const {template_name, user_id, data} = req.body;
   const entry = await addEntry(user_id, template_name);
   const entryId = entry.id;
-  await addResponses(data, entryId)
-  res.status(201).end()
+  await addResponses(data, entryId);
+  res.status(201).end();
 })
 
 app.post('/db/teamstemplates', verifyUser, async (req, res) => {

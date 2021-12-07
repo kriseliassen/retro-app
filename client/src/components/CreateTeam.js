@@ -30,6 +30,7 @@ const CreateTeam = () => {
       console.log(err)
     }
   };
+
   return (
     <div className="CreateTeam__container">
       <form onSubmit={handleSubmit(onSubmit)} className="CreateTeam__form">

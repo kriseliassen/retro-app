@@ -94,6 +94,8 @@ const Reports = () => {
     weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
   };
 
+  const today = new Date();
+
   return (
     <div className="Reports__container">
       <Link 
@@ -117,22 +119,20 @@ const Reports = () => {
           Template: {user.user.templates[0]}
         </p>
       }
-      {/* <p 
-        className="Reports__date">
-          {new Date().toLocaleString('en-GB', options)}
-      </p> */}
       <div className="Reports__toggle">
         <p className="Reports__toggle--text">
-          {showTeam ? 'Your team\'s entries' : 'Your entries'} ({output?.length})
+          {showTeam ? 'Team entries' : 'Your entries'} ({output?.length})
         </p>
         <button 
           onClick={toggleYours}
           className="Reports__toggle--btn btn--toggle">
-            {showTeam ? 'See only my entries' : 'See team entries'}
+            {showTeam ? 'See my entries' : 'See team entries'}
         </button>
       </div>
       <div className="Reports-list">
-        {output?.map(item => (
+        {output?.map(item => {
+          const daysAgo = Math.floor((today - new Date(item.questions[0].date))/ (1000 * 3600 * 24))
+          return (
           <div 
             key={item.entry} 
             className="Reports__card">
@@ -140,10 +140,18 @@ const Reports = () => {
               <h2 className="Reports__card--name">
                 {item.firstName} {item.lastName}
               </h2>
-              <p 
-                className="Reports__card--date">
-                  {new Date(item.questions[0].date).toLocaleString('en-GB', options)}
-              </p>
+              <div className="Reports__card--dategroup">
+                <p 
+                  className="Reports__card--date">
+                    {new Date(item.questions[0].date).toLocaleString('en-GB', options)}
+                </p>
+                <p 
+                  className="Reports__card--daysago">
+                    {daysAgo === 0 
+                      ? 'today' 
+                      : daysAgo === 1 ? `${daysAgo} day ago` : `${daysAgo} days ago` }
+                </p>
+              </div>
             </div>
             {
               item.questions?.map(q => (
@@ -155,7 +163,7 @@ const Reports = () => {
                 </div>))
             }
           </div>
-        ))
+        )})
         }
       </div>
     </div>

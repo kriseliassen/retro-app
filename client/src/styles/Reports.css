@@ -38,13 +38,17 @@
   text-transform: capitalize;
 }
 
+.Reports__template {
+  font-size: 1.1rem;
+}
+
 .Reports__toggle {
-  margin-top: 1em;
+  margin-top: 0.5em;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 1em;
   width: 100%;
   align-items: center;
-  gap: 1em;
 }
 
 .Reports__toggle--text {
@@ -56,13 +60,18 @@
   background: transparent;
   border: 1px solid var(--color-pink);
   color: var(--color-pink);
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   padding: 0.8em 1.5em;
   border-radius: 100px;
 }
 
+.btn--toggle:hover,
+.btn--toggle.focus{
+  background: var(--color-pink);
+  color: white;
+}
+
 .Reports-list {
-  margin-top: 1em;
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -76,11 +85,12 @@
   display: flex;
   flex-direction: column;
   gap: 1.2em;
+  width: 350px;
 }
 
 .Reports__card--header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -88,9 +98,9 @@
   font-size: 1.75rem;
 }
 
-.Reports__card--date {
+.Reports__card--dategroup {
+  text-align: right;
   font-size: 0.9rem;
-  font-weight: 300;
 }
 
 .Reports__card--qa {

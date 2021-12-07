@@ -5,7 +5,7 @@ import { addUser } from '../state/actionCreators';
 import '../styles/TemplateCard.css'
 
 
-const TemplateCard = ({template}) => {
+const TemplateCard = ({ template }) => {
   const {name, description} = template;
   const user = useSelector(state => state.user);
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ const TemplateCard = ({template}) => {
   const handleClickChoose = async () => {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
     const token = localStorage.getItem('retroToken');
+    
     await fetch(`${SERVER_URL}/db/teamstemplates`, {
       method: 'POST',
       headers: {
