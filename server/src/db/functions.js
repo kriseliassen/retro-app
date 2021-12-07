@@ -73,5 +73,15 @@ module.exports = {
     getAllEntries: async (teamId) => {
         const { rows } = await db.query(db.GET_ALL_ENTRIES, [teamId]);
         return rows;
-    }
+    },
+    addTemplate: async (name, description, teamName) => {
+        await db.query(db.ADD_TEMPLATE, [name, description, teamName]);
+        return;
+    },
+    addQuestions: async (questions, teamId) => {
+        questions.map(async (item, index) => {
+            await db.query(db.ADD_QUESTION, [item.question, item.type, teamId]);
+        })
+        return;
+    },
 }

@@ -57,12 +57,15 @@ Note: Beware of modifying this element as it can break the animations - you shou
   padding: 0.8em;
   display: flex;
   flex-direction: column;
-  gap: 2em;
+  gap: 2.5em;
 }
 
 /* Individual item */
 .bm-item {
   display: inline-block;
+}
+
+.menu-item {
   font-size: 1.5rem;
 }
 

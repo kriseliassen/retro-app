@@ -1,0 +1,120 @@
+.Reports__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  gap: 0.75em;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.Reports__header {
+  font-size: 1.25rem;
+  position: relative;
+  display: flex;
+}
+
+.Reports__header::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: .4em;
+  width: 120%;
+  top: 0.8em;
+  left: -9%;
+  z-index: -3;
+  background: var(--color-pink);
+  opacity: 0.4;
+}
+
+.Reports__greeting {
+  text-transform: capitalize;   
+}
+
+.Reports__team {
+  text-align: center;
+  font-size: 1.5rem;
+  max-width: 90%;
+  text-transform: capitalize;
+}
+
+.Reports__toggle {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 1em;
+}
+
+.Reports__toggle--text {
+  font-size: 1.15em;
+  font-weight: 600;
+}
+
+.btn--toggle {
+  background: transparent;
+  border: 1px solid var(--color-pink);
+  color: var(--color-pink);
+  font-size: 0.75rem;
+  padding: 0.8em 1.5em;
+  border-radius: 100px;
+}
+
+.Reports-list {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.Reports__card {
+  background: var(--color-dark-grey);
+  color: white;
+  padding: 1.5em;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2em;
+}
+
+.Reports__card--header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.Reports__card--name {
+  font-size: 1.75rem;
+}
+
+.Reports__card--date {
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.Reports__card--qa {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid var(--color-pink);
+  font-size: 1.15rem;
+}
+
+.Reports__card--qa:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.Reports__card--question {
+  font-weight: 200;
+}
+
+.Reports__card--answer {
+  font-weight: 600;
+}
+
+.Reports__card--answer::first-letter {
+  text-transform: capitalize;
+}
