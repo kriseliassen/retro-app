@@ -11,7 +11,7 @@ const Reports = () => {
     const dispatch = useDispatch();
     const [entries, setEntries] = useState([])
     const [output, setOutput] = useState([])
-    const [filters, setFilters] = useState({team: true})
+    const [showTeam, setShowTeam] = useState(false)
 
     const getEntries = async (token) =>{
         const resp = await fetch(`${SERVER_URL}/db/reports`, {
@@ -29,7 +29,9 @@ const Reports = () => {
           setEntries(rawEntries.reports)
     }
     const allIndividualTeamEntries = () => {
-        const data = [...entries]
+        const data = showTeam ? [...entries] : [ ...entries.filter(item => {
+            return item.user_id === user.user.id
+        })];
         const differentEntries = []
         const questionsSets = []
         data.forEach(i=> {
@@ -59,7 +61,7 @@ const Reports = () => {
             })
             filteredData.push({entry: entry, questions: intermediate, firstName: intermediate[0].first_name, lastName: intermediate[0].last_name})
         })
-    return (filteredData)
+        setOutput(filteredData)
     }
     useEffect(() => {
         const token = localStorage.getItem('retroToken');
@@ -75,19 +77,21 @@ const Reports = () => {
 
     useEffect(() => {
         if(output.length === 0 && entries.length !== 0){
-            setOutput(allIndividualTeamEntries())
+            allIndividualTeamEntries();
         }
-    },[entries]);
+    },[entries, output]);
+    
+    useEffect(() => {
+            allIndividualTeamEntries();
+    },[showTeam]);
 
     const toggleYours = () => {
-        if(filters.team === true){
-            
-        }
-        console.log('toggle')
+        setShowTeam(!showTeam);
+        console.log('toggle', showTeam)
     }
 
     
-    console.log('FUNCTION OUTPUT',allIndividualTeamEntries());
+    console.log('FUNCTION OUTPUT',output);
 const options = {
     weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'
 };
