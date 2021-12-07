@@ -13,7 +13,6 @@ const Reports = () => {
     const [output, setOutput] = useState([])
     const [filters, setFilters] = useState({team: true})
 
-
     const getEntries = async (token) =>{
         const resp = await fetch(`${SERVER_URL}/db/reports`, {
             method: 'POST',
@@ -27,8 +26,6 @@ const Reports = () => {
             })
           })
           const rawEntries = await resp.json()
-          console.log(rawEntries)
-          console.log('ORIGINAL DATA ', rawEntries.reports)
           setEntries(rawEntries.reports)
     }
     const allIndividualTeamEntries = () => {
@@ -60,7 +57,6 @@ const Reports = () => {
             questionsSets[i].forEach(q=> {
                 intermediate.push(data.find(item=> item.entries_id === entry && item.questions_id === q ))
             })
-            console.log('intermediate', i, intermediate )
             filteredData.push({entry: entry, questions: intermediate, firstName: intermediate[0].first_name, lastName: intermediate[0].last_name})
         })
     return (filteredData)
@@ -78,10 +74,10 @@ const Reports = () => {
     }, [user]);
 
     useEffect(() => {
-        if(output.length === 0){
+        if(output.length === 0 && entries.length !== 0){
             setOutput(allIndividualTeamEntries())
         }
-    },[output]);
+    },[entries]);
 
     const toggleYours = () => {
         if(filters.team === true){
@@ -91,9 +87,10 @@ const Reports = () => {
     }
 
     
-    
     console.log('FUNCTION OUTPUT',allIndividualTeamEntries());
-
+const options = {
+    weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'
+};
     return (
         <div>
 
@@ -102,6 +99,7 @@ const Reports = () => {
             {output?.map(item=>(
                 <div key={item.entry}>
                     <h2>User: {item.firstName} {item.lastName}</h2>
+                    <p>{new Date(item.questions[0].date).toLocaleString('en-GB', options)}</p>
                 {
                 item.questions?.map(q=>(
                     <div key={q.responseid}>
