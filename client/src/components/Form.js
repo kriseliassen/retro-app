@@ -1,9 +1,10 @@
 import React , {useEffect, useState} from 'react'
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {BiArrowBack} from 'react-icons/bi'
 import '../styles/Form.css'
 import { useNavigate, Link } from 'react-router-dom';
+import { fetchUser } from '../state/actionCreators';
 
 
 const Form = () => {
@@ -11,6 +12,7 @@ const Form = () => {
   const user = useSelector(state => state.user);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmit = async data => {
     console.log(data)
@@ -53,11 +55,17 @@ const Form = () => {
   }
 
   useEffect(() => {
-    if(user.user?.templates.length > 0 ){
-      getQuestions()
-    }
-
-  }, [])
+    const token = localStorage.getItem('retroToken');
+    if(!token) {
+      navigate('/login')
+      return;
+    } else if (!user.user) {
+      dispatch(fetchUser(token))
+  }
+  if(user.user?.templates.length > 0 ){
+    getQuestions()
+  }
+  }, [user.user])
 
   return (
     <div className="Form__container">
