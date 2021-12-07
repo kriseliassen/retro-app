@@ -17,19 +17,21 @@ const CreateTemplate = () => {
   const { register: register2, handleSubmit: handleSubmit2, formState: { errors: errors2 } } = useForm();
   const { register: register3, handleSubmit: handleSubmit3, formState: { errors: errors3 } } = useForm();
 
-  const onSubmitTemplateName = (data) => {
+  const onSubmitTemplateName = (data, e) => {
     const updatedTemplate = { ...template }
     updatedTemplate.templateName = data.templateName
     updatedTemplate.templateDescription = data.templateDescription
     updatedTemplate.teamId = user.user?.team_id;
     updatedTemplate.teamName = user.user?.team_name;
     setTemplate(updatedTemplate)
+    e.target.reset();
   }
 
-  const onSubmitQuestion = async data => {
+  const onSubmitQuestion = async (data, e) => {
     const updatedTemplate = { ...template }
     updatedTemplate.questions.push(data)
-    setTemplate(updatedTemplate)
+    setTemplate(updatedTemplate);
+    e.target.reset();
   }
 
   const deleteQuestion = async (e, item) => {
