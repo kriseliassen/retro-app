@@ -109,7 +109,7 @@ const Profile = () => {
             Create your own template
         </button>
         <p className="Profile__TemplateCardsContainer--header">
-            or choose a template from the predefined list below
+            Or choose a predefined template from the list below
         </p>
         {templates.map(item => (<TemplateCard template={item} key={item.name} />))}
       </div>

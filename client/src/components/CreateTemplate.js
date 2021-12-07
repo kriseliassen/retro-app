@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from '../state/actionCreators';
 import { addUser } from '../state/actionCreators';
+import '../styles/CreateTemplate.css'
 
 const CreateTemplate = () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -30,6 +31,7 @@ const CreateTemplate = () => {
     updatedTemplate.questions.push(data)
     setTemplate(updatedTemplate)
   }
+
   const deleteQuestion = async (e, item) => {
     e.preventDefault()
     const questions = template.questions.filter(i => i.question !== item.question)
@@ -37,6 +39,7 @@ const CreateTemplate = () => {
     newTemplate.questions = questions
     setTemplate(newTemplate)
   }
+
   const onSubmitTemplate = async data => {
     try {
       const token = localStorage.getItem('retroToken');
@@ -49,11 +52,11 @@ const CreateTemplate = () => {
         },
         body: JSON.stringify(template)
       })
-      const updatedUser = {...user };
+      const updatedUser = { ...user };
       updatedUser.user.templates = [template.name];
       dispatch(addUser(updatedUser));
       navigate('/')
-    } catch(err) {
+    } catch (err) {
       console.log(err)
     }
   }
@@ -72,55 +75,120 @@ const CreateTemplate = () => {
   }, [user]);
 
   return (
-    <div className="Form__container">
+    <div className="CreateTemplate__container">
       <Link to="/" className="Link--go-back">
         <BiArrowBack />
         Back to profile
       </Link>
-      <h1 className="Form__header">
-        <span className="Form__header--intro">Create a new template</span>
+      <h1 className="CreateTemplate__header">
+        Create a new template
       </h1>
-      <form onSubmit={handleSubmit1(onSubmitTemplateName)}>
-        <input type="text" placeholder="Template name" {...register1("templateName", { required: true })} />
-        <input type="text" placeholder="Template description" {...register1("templateDescription", { required: false })} />
-        <input type="submit" />
+      <h3 className="CreateTemplate__questions--header">
+        Add title and description
+      </h3>
+      <form onSubmit={handleSubmit1(onSubmitTemplateName)} className="CreateTemplate__form">
+        <input
+          type="text"
+          placeholder="Template name"
+          {...register1("templateName", { required: true })}
+          className="CreateTemplate__form--input" 
+          id="template-name"/>
+        <input
+          type="text"
+          placeholder="Template description"
+          {...register1("templateDescription", { required: false })}
+          className="CreateTemplate__form--input" 
+          id="template-description"/>
+        <input
+          type="submit"
+          value="Confirm"
+          className="btn--form CreateTemplate__btn--form" />
       </form>
-      <br />
       {template.templateName &&
-        <div>
-          <h3>Add a new question</h3>
-          <form onSubmit={handleSubmit2(onSubmitQuestion)}>
-            <input type="text" placeholder="Question Text" {...register2("question", { required: true })} />
-            <p>Type</p>
-            <span>Text</span>
-            <input {...register2("type", { required: true })} type="radio" value="text" />
-            <span>Number</span>
-            <input {...register2("type", { required: true })} type="radio" value="number" />
+        <>
+          <h3 className="CreateTemplate__questions--header">
+            Add questions
+          </h3>
+          <form
+            onSubmit={handleSubmit2(onSubmitQuestion)}
+            className="CreateTemplate__form">
+            <input
+              type="text"
+              placeholder="Question text"
+              {...register2("question", { required: true })}
+              className="CreateTemplate__form--input" />
+            <div className="CreateTemplate__form--type">
+              <p className="CreateTemplate__form--title">
+                Type of response
+              </p>
+              <div className="CreateTemplate__form--input-group">
+                <input
+                  {...register2("type", { required: true })}
+                  type="radio"
+                  value="text"
+                  id="type--text"
+                  className="CreateTemplate__form--radio" />
+                <label className="CreateTemplate__form--label"
+                  htmlFor="type--text">
+                  Text
+                </label>
+              </div>
+              <div className="CreateTemplate__form--input-group">
+                <input
+                  {...register2("type", { required: true })} type="radio"
+                  value="number"
+                  className="CreateTemplate__form--radio" />
+                <label className="CreateTemplate__form--label">
+                  Number
+                </label>
+              </div>
+            </div>
 
-            <input type="submit" />
+            <input
+              type="submit"
+              value="Add question"
+              className="btn--form CreateTemplate__btn--form" />
           </form>
-        </div>}
-      <h1 className="Form__header">
-        {template.templateName && <span className="Form__header--intro">{`Template draft: ${template.templateName}`}</span>}
-      </h1>
-      {(template.templateName && template.questions.length === 0) && <span className="">This template has no questions yet.</span>}
-      <form className="Form__form" onSubmit={handleSubmit3(onSubmitTemplate)}>
+        </>}
+      {template.templateName 
+      && <>
+          <h2 className="CreateTemplate__header">
+            Preview template:
+          </h2>
+          <p className="CreateTemplate__subheader">
+            {template.templateName}
+          </p>
+        </>}
+      {(template.templateName 
+        && template.questions.length === 0) 
+        && <p className="CreateTemplate__description">
+            This template has no questions yet. Add some questions to see the form here.
+          </p>}
+      <form className="CreateTemplate__form" 
+      onSubmit={handleSubmit3(onSubmitTemplate)}>
         {template.questions?.map(item => (
-          <div key={item.id} className="Form__form--question">
-            <label className="Form__form--label">
+          <div 
+            key={item.id} className="CreateTemplate__form--input-list">
+            <label className="CreateTemplate__form--label">
               {item.question}
-              {item.type === 'number' ? ` Rate 1-5`
+              {item.type === 'number' ? ` - Rate 1-5`
                 : ''}
             </label>
             {item.type === 'text' ?
               <textarea
                 {...register3(`${item.id}`)}
-                className="Form__form--input Form__form--textarea" />
+                className="CreateTemplate__form--input CreateTemplate__form--textarea" 
+                disabled/>
               : <input
                 type={item.type}
                 {...register3(`${item.id}`)}
-                className="Form__form--input" />}
-            <button onClick={e => deleteQuestion(e, item)}>Delete question</button>
+                className="CreateTemplate__form--input" 
+                disabled/>}
+            <button 
+            onClick={e => deleteQuestion(e, item)}
+            className="btn--delete">
+              Delete question
+            </button>
           </div>
         ))}
         {(template.questions.length > 0 && template.templateName) && <input type="submit" className="btn--form Form__btn--form" value="Submit new template" />}

@@ -1,0 +1,129 @@
+.CreateTemplate__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  gap: 0.75em;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.CreateTemplate__header {
+  margin-top: 0.5em;
+  font-size: 1.75rem;
+  position: relative;
+  display: flex;
+}
+
+.CreateTemplate__header::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: .4em;
+  width: 105%;
+  top: 0.8em;
+  left: -2.5%;
+  z-index: -3;
+  background: var(--color-pink);
+  opacity: 0.4;
+}
+
+.CreateTemplate__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1em;
+}
+
+.CreateTemplate__form--input {
+  font-family: var(--ff-sans-serif);
+  width: 90%;
+  font-size: 1.5rem;
+  padding: 0.25em 0.5em;
+  border-radius: 8px;
+  border: 1px solid var(--color-dark-grey);
+}
+
+.CreateTemplate__btn--form {
+  margin: 0 1em;
+  align-self: flex-end;
+
+}
+
+.CreateTemplate__questions {
+  width: 100%;
+}
+
+.CreateTemplate__questions--header {
+  margin-left: 1.75em;
+  font-size: 1.25rem;
+  width: 100%;
+}
+
+.CreateTemplate__form--type {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+}
+
+.CreateTemplate__form--title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.CreateTemplate__form--input-group {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.CreateTemplate__subheader {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.CreateTemplate__description {
+  width: 90%;
+  text-align: center;
+}
+
+.CreateTemplate__form--input-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  width: 90%;
+}
+
+.CreateTemplate__form--label::first-letter {
+  text-transform: capitalize;
+}
+
+.CreateTemplate__form--textarea {
+  min-height: 100px;
+  width: 100%;
+}
+
+.CreateTemplate__form--input[type=number] {
+  width: 20%;
+}
+
+.btn--delete {
+  align-self: flex-end;
+  background: white;
+  border: 1px solid var(--color-pink);
+  color: var(--color-pink);
+  font-size: .8rem;
+  padding: 0.8em 1.5em;
+  border-radius: 100px;
+}
+
+
+.btn--delete:hover,
+.btn--delete.focus {
+  background: white;
+  border: 1px solid var(--color-pink);
+  color: var(--color-pink);
+}
