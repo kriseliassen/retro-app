@@ -117,7 +117,9 @@ const Reports = () => {
       }
       {user.user?.templates[0]
         && <p className="Reports__template">
-          Template: {user.user.templates[0]}
+          Template: {user.user.templates[0]} // {output?.length === 1 
+          ? `${output?.length} entry` 
+          : `${output?.length} entries`}
         </p>
       }
       {/* <div className="Reports__toggle">
@@ -130,11 +132,11 @@ const Reports = () => {
             {showTeam ? 'See my entries' : 'See team entries'}
         </button>
       </div> */}
-      <p className="Reports__toggle--text">
+      {/* <p className="Reports__toggle--text">
         {output?.length === 1 
           ? `${output?.length} entry` 
           : `${output?.length} entries`}
-      </p>
+      </p> */}
       <SwitchToggle showTeam={showTeam} setShowTeam={setShowTeam}/>
       <div className="Reports-list">
         {output?.map(item => {
