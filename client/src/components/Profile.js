@@ -1,7 +1,5 @@
 import React , { useEffect, useState }from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { slide as Menu } from 'react-burger-menu'
 import { useNavigate } from 'react-router-dom';
 import JoinTeam from './JoinTeam';
 import CreateTeam from './CreateTeam';
@@ -36,7 +34,6 @@ const Profile = () => {
 
   const getTemplates = async token => {
     try  {
-      console.log('GET TEMPLATES', user?.user?.team_id)
       const response = await fetch(`${SERVER_URL}/db/templates`, {
         method: "GET",
         headers: { 

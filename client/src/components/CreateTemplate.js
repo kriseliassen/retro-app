@@ -94,13 +94,15 @@ const CreateTemplate = () => {
           placeholder="Template name"
           {...register1("templateName", { required: true })}
           className="CreateTemplate__form--input" 
-          id="template-name"/>
+          id="template-name"
+          autoComplete="off"/>
         <input
           type="text"
           placeholder="Template description"
           {...register1("templateDescription", { required: false })}
           className="CreateTemplate__form--input" 
-          id="template-description"/>
+          id="template-description"
+          autoComplete="off"/>
         <input
           type="submit"
           value="Confirm"
@@ -118,7 +120,8 @@ const CreateTemplate = () => {
               type="text"
               placeholder="Question text"
               {...register2("question", { required: true })}
-              className="CreateTemplate__form--input" />
+              className="CreateTemplate__form--input" 
+              autoComplete="off"/>
             <div className="CreateTemplate__form--type">
               <p className="CreateTemplate__form--title">
                 Type of response

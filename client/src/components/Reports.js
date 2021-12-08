@@ -95,7 +95,7 @@ const Reports = () => {
   };
 
   const today = new Date();
-
+  console.log(output)
   return (
     <div className="Reports__container">
       <Link 

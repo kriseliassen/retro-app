@@ -15,7 +15,6 @@ const Form = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async data => {
-    console.log(data)
     const SERVER_URL = process.env.REACT_APP_SERVER_URL;
       const token = localStorage.getItem('retroToken');
       const resp = await fetch(`${SERVER_URL}/db/entries`, {
