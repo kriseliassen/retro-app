@@ -40,6 +40,9 @@
 
 .Reports__template {
   font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
 
 .Reports__toggle {
@@ -52,8 +55,7 @@
 }
 
 .Reports__toggle--text {
-  font-size: 1.15em;
-  font-weight: 600;
+  font-size: 1.1em;
 }
 
 .btn--toggle {
@@ -78,7 +80,7 @@
 }
 
 .Reports__card {
-  background: var(--color-dark-grey);
+  background: #5c6d7e;
   color: white;
   padding: 1.5em;
   border-radius: 15px;
@@ -108,7 +110,7 @@
   flex-direction: column;
   gap: 1em;
   padding-bottom: 1em;
-  border-bottom: 1px solid var(--color-pink);
+  border-bottom: 1px solid #B7C3F3;
   font-size: 1.15rem;
 }
 
@@ -127,4 +129,17 @@
 
 .Reports__card--answer::first-letter {
   text-transform: capitalize;
+}
+
+.ToggleSwitch__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  width: 100%;
+  padding-right: 1em;
+}
+
+.ToggleSwitch__label {
+  font-weight: 600;
 }

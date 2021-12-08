@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchUser } from '../state/actionCreators';
 import {BiArrowBack} from 'react-icons/bi'
+import {AiOutlineDoubleRight} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import '../styles/Reports.css'
+import SwitchToggle from './SwitchToggle';
 
 const Reports = () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -86,9 +88,9 @@ const Reports = () => {
     allIndividualTeamEntries();
   }, [showTeam]);
 
-  const toggleYours = () => {
-    setShowTeam(!showTeam);
-  }
+  // const toggleYours = () => {
+  //   setShowTeam(!showTeam);
+  // }
 
   const options = {
     weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
@@ -116,10 +118,12 @@ const Reports = () => {
       }
       {user.user?.templates[0]
         && <p className="Reports__template">
-          Template: {user.user.templates[0]}
+          Template: {user.user.templates[0]} <AiOutlineDoubleRight /> {output?.length === 1 
+          ? `${output?.length} entry` 
+          : `${output?.length} entries`}
         </p>
       }
-      <div className="Reports__toggle">
+      {/* <div className="Reports__toggle">
         <p className="Reports__toggle--text">
           {showTeam ? 'Team entries' : 'Your entries'} ({output?.length})
         </p>
@@ -128,7 +132,13 @@ const Reports = () => {
           className="Reports__toggle--btn btn--toggle">
             {showTeam ? 'See my entries' : 'See team entries'}
         </button>
-      </div>
+      </div> */}
+      {/* <p className="Reports__toggle--text">
+        {output?.length === 1 
+          ? `${output?.length} entry` 
+          : `${output?.length} entries`}
+      </p> */}
+      <SwitchToggle showTeam={showTeam} setShowTeam={setShowTeam}/>
       <div className="Reports-list">
         {output?.map(item => {
           const daysAgo = Math.floor((today - new Date(item.questions[0].date))/ (1000 * 3600 * 24))
