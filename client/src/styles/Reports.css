@@ -107,7 +107,7 @@
   flex-direction: column;
   gap: 1em;
   padding-bottom: 1em;
-  border-bottom: 1px solid var(--color-pink);
+  border-bottom: 1px solid #B7C3F3;
   font-size: 1.15rem;
 }
 

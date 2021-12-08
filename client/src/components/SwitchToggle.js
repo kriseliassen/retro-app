@@ -17,7 +17,7 @@ const SwitchToggle = ({ showTeam, setShowTeam }) => {
           checked={checked}
           onChange={handleChange}
           onColor="#404E5C"
-          onHandleColor="#DD7596"
+          onHandleColor="#B7C3F3"
           handleDiameter={30}
           uncheckedIcon={false}
           checkedIcon={false}
