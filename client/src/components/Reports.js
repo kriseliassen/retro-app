@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchUser } from '../state/actionCreators';
 import {BiArrowBack} from 'react-icons/bi'
+import {AiOutlineDoubleRight} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import '../styles/Reports.css'
 import SwitchToggle from './SwitchToggle';
@@ -117,7 +118,7 @@ const Reports = () => {
       }
       {user.user?.templates[0]
         && <p className="Reports__template">
-          Template: {user.user.templates[0]} // {output?.length === 1 
+          Template: {user.user.templates[0]} <AiOutlineDoubleRight /> {output?.length === 1 
           ? `${output?.length} entry` 
           : `${output?.length} entries`}
         </p>

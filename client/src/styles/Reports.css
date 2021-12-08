@@ -40,6 +40,9 @@
 
 .Reports__template {
   font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
 }
 
 .Reports__toggle {
