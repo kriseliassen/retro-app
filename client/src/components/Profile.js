@@ -64,7 +64,7 @@ const Profile = () => {
     const token = localStorage.getItem('retroToken');
     const customTemplate = templates.some(t => t.name === user.user?.templates[0]);
     
-    if (templates.length === 0 || !customTemplate) {
+    if ((templates.length === 0 && user.user?.team_id !== null) || (!customTemplate && user.user?.team_id !== null)) {
       getTemplates(token);
     }
   }, [templates])
