@@ -5,6 +5,7 @@ import { fetchUser } from '../state/actionCreators';
 import {BiArrowBack} from 'react-icons/bi'
 import { Link } from 'react-router-dom';
 import '../styles/Reports.css'
+import SwitchToggle from './SwitchToggle';
 
 const Reports = () => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -119,7 +120,7 @@ const Reports = () => {
           Template: {user.user.templates[0]}
         </p>
       }
-      <div className="Reports__toggle">
+      {/* <div className="Reports__toggle">
         <p className="Reports__toggle--text">
           {showTeam ? 'Team entries' : 'Your entries'} ({output?.length})
         </p>
@@ -128,7 +129,13 @@ const Reports = () => {
           className="Reports__toggle--btn btn--toggle">
             {showTeam ? 'See my entries' : 'See team entries'}
         </button>
-      </div>
+      </div> */}
+      <p className="Reports__toggle--text">
+        {output?.length === 1 
+          ? `${output?.length} entry` 
+          : `${output?.length} entries`}
+      </p>
+      <SwitchToggle showTeam={showTeam} setShowTeam={setShowTeam} entries={output?.length}/>
       <div className="Reports-list">
         {output?.map(item => {
           const daysAgo = Math.floor((today - new Date(item.questions[0].date))/ (1000 * 3600 * 24))

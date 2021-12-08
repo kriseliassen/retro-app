@@ -52,8 +52,7 @@
 }
 
 .Reports__toggle--text {
-  font-size: 1.15em;
-  font-weight: 600;
+  font-size: 1.1em;
 }
 
 .btn--toggle {
@@ -127,4 +126,17 @@
 
 .Reports__card--answer::first-letter {
   text-transform: capitalize;
+}
+
+.ToggleSwitch__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.25rem;
+  width: 100%;
+  padding-right: 1em;
+}
+
+.ToggleSwitch__label {
+  font-weight: 600;
 }
