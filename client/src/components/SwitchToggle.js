@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Switch from "react-switch";
 
-const SwitchToggle = ({ showTeam, setShowTeam, entries }) => {
+const SwitchToggle = ({ showTeam, setShowTeam }) => {
   const [checked, setChecked] = useState(false)
 
   const handleChange = () => {

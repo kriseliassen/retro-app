@@ -87,16 +87,16 @@ const Reports = () => {
     allIndividualTeamEntries();
   }, [showTeam]);
 
-  const toggleYours = () => {
-    setShowTeam(!showTeam);
-  }
+  // const toggleYours = () => {
+  //   setShowTeam(!showTeam);
+  // }
 
   const options = {
     weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
   };
 
   const today = new Date();
-  console.log(output)
+
   return (
     <div className="Reports__container">
       <Link 
@@ -135,7 +135,7 @@ const Reports = () => {
           ? `${output?.length} entry` 
           : `${output?.length} entries`}
       </p>
-      <SwitchToggle showTeam={showTeam} setShowTeam={setShowTeam} entries={output?.length}/>
+      <SwitchToggle showTeam={showTeam} setShowTeam={setShowTeam}/>
       <div className="Reports-list">
         {output?.map(item => {
           const daysAgo = Math.floor((today - new Date(item.questions[0].date))/ (1000 * 3600 * 24))
