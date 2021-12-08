@@ -12,7 +12,11 @@ const SwitchToggle = ({ showTeam, setShowTeam }) => {
   return (
     <div className="ToggleSwitch__container">
       <label htmlFor="material-switch" />
-        <span className="ToggleSwitch__label">Team entries</span>
+        <span 
+          className=
+        {`ToggleSwitch__label ${!checked ? "toggle-active" : ""}`}>
+          Team entries
+        </span>
         <Switch
           checked={checked}
           onChange={handleChange}
@@ -28,7 +32,11 @@ const SwitchToggle = ({ showTeam, setShowTeam }) => {
           className="react-switch"
           id="material-switch"
         />
-        <span className="ToggleSwitch__label">My entries</span>
+        <span 
+          className=
+        {`ToggleSwitch__label ${checked ? "toggle-active" : ""}`}>
+          My entries
+        </span>
     </div>
   )
 }

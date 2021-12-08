@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/About.css'
 import {BiArrowBack} from 'react-icons/bi'
+import {BsGithub} from 'react-icons/bs'
 import { Link } from 'react-router-dom';
 
 const About = () => {
@@ -32,6 +33,9 @@ const About = () => {
           </a>
         </li>
       </ul>
+      <a href="https://github.com/Fjordie/retro-app" className="About__gh-link">
+        <BsGithub />
+      </a>
     </div>
   )
 }

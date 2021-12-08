@@ -43,3 +43,8 @@
   font-size: 1.1rem;
   font-weight: 600;
 }
+
+.About__gh-link {
+  margin-top: 1em;
+  font-size: 2rem;
+}

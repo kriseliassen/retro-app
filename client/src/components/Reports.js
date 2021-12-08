@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchUser } from '../state/actionCreators';
 import {BiArrowBack} from 'react-icons/bi'
-import {AiOutlineDoubleRight} from 'react-icons/ai'
+import {AiOutlineDoubleRight, AiFillStar} from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import '../styles/Reports.css'
 import SwitchToggle from './SwitchToggle';
@@ -67,6 +67,7 @@ const Reports = () => {
     })
     setOutput(filteredData)
   }
+  
   useEffect(() => {
     const token = localStorage.getItem('retroToken');
     if (!token) {
@@ -79,7 +80,9 @@ const Reports = () => {
   }, [user]);
 
   useEffect(() => {
-    if (output.length === 0 && entries.length !== 0) {
+    console.log('use effect #2')
+    if (showTeam && output.length === 0 && entries.length !== 0) {
+      console.log('creating output')
       allIndividualTeamEntries();
     }
   }, [entries, output]);
@@ -87,10 +90,6 @@ const Reports = () => {
   useEffect(() => {
     allIndividualTeamEntries();
   }, [showTeam]);
-
-  // const toggleYours = () => {
-  //   setShowTeam(!showTeam);
-  // }
 
   const options = {
     weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
@@ -123,21 +122,6 @@ const Reports = () => {
           : `${output?.length} entries`}
         </p>
       }
-      {/* <div className="Reports__toggle">
-        <p className="Reports__toggle--text">
-          {showTeam ? 'Team entries' : 'Your entries'} ({output?.length})
-        </p>
-        <button 
-          onClick={toggleYours}
-          className="Reports__toggle--btn btn--toggle">
-            {showTeam ? 'See my entries' : 'See team entries'}
-        </button>
-      </div> */}
-      {/* <p className="Reports__toggle--text">
-        {output?.length === 1 
-          ? `${output?.length} entry` 
-          : `${output?.length} entries`}
-      </p> */}
       <SwitchToggle showTeam={showTeam} setShowTeam={setShowTeam}/>
       <div className="Reports-list">
         {output?.map(item => {
@@ -145,10 +129,12 @@ const Reports = () => {
           return (
           <div 
             key={item.entry} 
-            className="Reports__card">
+            className={`Reports__card ${item.questions[0].user_id === user.user?.id ? "Reports__card-user" : ""}`}>
             <div className="Reports__card--header">
               <h2 className="Reports__card--name">
-                {item.firstName} {item.lastName}
+                {item.questions[0].user_id === user.user?.id 
+                ? <span className="Reports__card--name-span"><AiFillStar /> Your response</span>
+                : `${item.firstName}'s response`}
               </h2>
               <div className="Reports__card--dategroup">
                 <p 

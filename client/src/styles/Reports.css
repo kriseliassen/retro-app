@@ -90,6 +90,12 @@
   width: 350px;
 }
 
+.Reports__card--name-span {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+}
+
 .Reports__card--header {
   display: flex;
   align-items: center;
@@ -97,12 +103,13 @@
 }
 
 .Reports__card--name {
-  font-size: 1.75rem;
+  font-size: 1.3rem;
+  word-wrap: normal;
 }
 
 .Reports__card--dategroup {
   text-align: right;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .Reports__card--qa {
@@ -142,4 +149,23 @@
 
 .ToggleSwitch__label {
   font-weight: 600;
+  opacity: 0.6;
+}
+
+.toggle-active {
+  position: relative;
+  opacity: 1;
+}
+
+.toggle-active::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: .4em;
+  width: 100%;
+  top: 0.9em;
+  left: 0;
+  z-index: -3;
+  background: #B7C3F3;
+  opacity: 0.4;
 }
