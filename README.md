@@ -20,7 +20,7 @@ On the backend, we used NodeJS with Express, which gave us a quick start and all
 The data is stored in a PostgreSQL database.
 
 ### Deployment
-The app, both back-end and front-end, is deployed on Heroku and can be found [here] (https://mob-retro.herokuapp.com/).
+The app, both back-end and front-end, is deployed on Heroku and can be found [here](https://mob-retro.herokuapp.com/).
 
 ## Status of the app
 The app is deployed and fully functional, but is only styled for mobile view. It is currently an MVP, but we have considered expanding it by implementing e.g. better visualization of the reports with statistics, support for multiple forms per team, and 3rd party login functionality.
